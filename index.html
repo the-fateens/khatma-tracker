@@ -1,0 +1,2303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+
+<title>Family Khatma Tracker</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+  --teal-900:#0B3D38;
+  --teal-700:#0F544D;
+  --gold-600:#B8873A;
+  --gold-400:#D6A85C;
+
+  --sand-50:#F3EFE4;
+  --sand-100:#EAE3D2;
+  --sand-200:#DED5C0;
+
+  --ink:#1F2A28;
+  --ink-soft:#5A6663;
+
+  --line:#DDD5C0;
+  --white:#FFFDF8;
+
+  --success-bg:#E5F0E4;
+  --error-bg:#FBEAEA;
+  --error:#7A231A;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+html{
+  -webkit-text-size-adjust:100%;
+}
+
+body{
+  margin:0;
+  background:var(--sand-50);
+  color:var(--ink);
+  font-family:'Inter',sans-serif;
+  min-height:100vh;
+  padding:20px 14px 50px;
+}
+
+button,
+input{
+  -webkit-tap-highlight-color:transparent;
+}
+
+button{
+  font-family:'Inter',sans-serif;
+}
+
+.wrap{
+  max-width:480px;
+  margin:0 auto;
+}
+
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+
+.top{
+  text-align:center;
+  margin-bottom:22px;
+}
+
+.hijri-date{
+  font-size:12px;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  color:var(--ink-soft);
+  font-weight:500;
+  margin-bottom:5px;
+}
+
+.title{
+  font-family:'Amiri',serif;
+  font-size:27px;
+  color:var(--teal-900);
+  font-weight:700;
+  margin:0;
+}
+
+.subtitle{
+  font-size:12px;
+  color:var(--ink-soft);
+  margin-top:2px;
+}
+
+
+/* ============================================================
+   BANNERS
+   ============================================================ */
+
+.setup-banner{
+  background:#FDEEDC;
+  border:1px solid var(--gold-600);
+  border-radius:14px;
+  padding:14px 16px;
+  font-size:13px;
+  color:var(--teal-900);
+  margin-bottom:18px;
+  line-height:1.5;
+}
+
+.error-banner{
+  background:var(--error-bg);
+  border:1px solid #C0392B;
+  border-radius:14px;
+  padding:13px 15px;
+  font-size:13px;
+  color:var(--error);
+  margin-bottom:18px;
+  line-height:1.5;
+}
+
+
+/* ============================================================
+   TODAY'S JUZ CARD
+   ============================================================ */
+
+.juz-card{
+  background:var(--white);
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:27px 20px 22px;
+  text-align:center;
+  margin-bottom:20px;
+  box-shadow:0 2px 8px rgba(31,42,40,.03);
+}
+
+.juz-label{
+  font-size:11px;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--ink-soft);
+  margin-bottom:8px;
+  font-weight:600;
+}
+
+.juz-star{
+  width:100px;
+  height:100px;
+  margin:0 auto 10px;
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.juz-number{
+  font-family:'Amiri',serif;
+  font-weight:700;
+  font-size:43px;
+  color:var(--teal-900);
+  position:relative;
+  z-index:2;
+  line-height:1;
+}
+
+.juz-sub{
+  font-size:14px;
+  color:var(--ink-soft);
+  margin-bottom:10px;
+}
+
+.quran-link{
+  display:inline-block;
+  color:var(--teal-700);
+  font-size:12px;
+  font-weight:600;
+  text-decoration:none;
+  margin-bottom:19px;
+}
+
+.quran-link:hover{
+  text-decoration:underline;
+}
+
+.checkin-btn{
+  width:100%;
+  padding:15px 18px;
+  min-height:52px;
+  border-radius:14px;
+  border:none;
+  font-size:15px;
+  font-weight:600;
+  cursor:pointer;
+  background:var(--teal-700);
+  color:var(--white);
+  transition:transform .12s ease,background .15s ease;
+}
+
+.checkin-btn:active{
+  transform:scale(.98);
+}
+
+.checkin-btn.done{
+  background:var(--success-bg);
+  color:var(--teal-900);
+  border:1.5px solid var(--gold-600);
+}
+
+.checkin-btn:disabled{
+  opacity:.55;
+  cursor:default;
+}
+
+
+/* ============================================================
+   NAME SELECTOR
+   ============================================================ */
+
+.who-label{
+  font-size:12px;
+  color:var(--ink-soft);
+  margin:15px 0 9px;
+}
+
+.who-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:8px;
+}
+
+.who-btn{
+  min-height:44px;
+  padding:10px 6px;
+  border-radius:12px;
+  border:1.5px solid var(--line);
+  background:var(--sand-50);
+  color:var(--ink);
+  font-size:13px;
+  font-weight:500;
+  cursor:pointer;
+}
+
+.who-btn:active{
+  transform:scale(.97);
+}
+
+.you-line{
+  font-size:12px;
+  color:var(--ink-soft);
+  margin-top:11px;
+}
+
+.you-line strong{
+  color:var(--teal-900);
+}
+
+.text-button{
+  background:none;
+  border:none;
+  color:var(--teal-700);
+  font-size:12px;
+  text-decoration:underline;
+  cursor:pointer;
+  padding:0;
+}
+
+
+/* ============================================================
+   SECTION TITLES
+   ============================================================ */
+
+.section-title{
+  font-size:12px;
+  letter-spacing:.07em;
+  text-transform:uppercase;
+  color:var(--ink-soft);
+  font-weight:600;
+  margin:0 0 10px 2px;
+}
+
+
+/* ============================================================
+   TODAY'S FAMILY STATUS
+   ============================================================ */
+
+.family-card{
+  background:var(--white);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:17px;
+  margin-bottom:20px;
+}
+
+.today-summary{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:14px;
+}
+
+.today-count{
+  font-family:'Amiri',serif;
+  font-size:25px;
+  font-weight:700;
+  color:var(--teal-900);
+  line-height:1;
+}
+
+.today-count-label{
+  font-size:11px;
+  color:var(--ink-soft);
+  margin-top:4px;
+}
+
+.today-bar{
+  height:7px;
+  background:var(--sand-100);
+  border-radius:999px;
+  overflow:hidden;
+  flex:1;
+  min-width:100px;
+}
+
+.today-bar-fill{
+  height:100%;
+  background:var(--gold-600);
+  border-radius:999px;
+  transition:width .3s ease;
+}
+
+.family-grid{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+.chip{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  padding:7px 11px 7px 7px;
+  border-radius:999px;
+  border:1.5px solid var(--line);
+  background:var(--sand-50);
+  font-size:12px;
+  font-weight:500;
+  color:var(--ink-soft);
+}
+
+.chip.read{
+  border-color:var(--gold-600);
+  background:var(--sand-100);
+  color:var(--teal-900);
+}
+
+.chip .avatar{
+  width:25px;
+  height:25px;
+  border-radius:50%;
+  background:var(--line);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:10px;
+  font-weight:600;
+  color:var(--white);
+  flex-shrink:0;
+}
+
+.chip.read .avatar{
+  background:var(--gold-600);
+}
+
+
+/* ============================================================
+   FAMILY MONTH PROGRESS
+   ============================================================ */
+
+.progress-card{
+  background:var(--white);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:18px;
+  margin-bottom:20px;
+}
+
+.progress-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  margin-bottom:14px;
+}
+
+.progress-big{
+  font-family:'Amiri',serif;
+  font-size:27px;
+  font-weight:700;
+  color:var(--teal-900);
+  line-height:1;
+}
+
+.progress-small{
+  font-size:11px;
+  color:var(--ink-soft);
+  margin-top:4px;
+}
+
+.progress-percent{
+  font-size:13px;
+  font-weight:600;
+  color:var(--gold-600);
+}
+
+.progress-bar{
+  height:9px;
+  background:var(--sand-100);
+  border-radius:999px;
+  overflow:hidden;
+  margin-bottom:17px;
+}
+
+.progress-bar-fill{
+  height:100%;
+  background:var(--gold-600);
+  border-radius:999px;
+  transition:width .3s ease;
+}
+
+
+/* ============================================================
+   DAILY FAMILY GRID
+   ============================================================ */
+
+.day-progress-list{
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+}
+
+.day-row{
+  display:flex;
+  align-items:center;
+  min-height:30px;
+  gap:8px;
+  padding:4px;
+  border-radius:8px;
+}
+
+.day-row.today{
+  background:#F7F1E3;
+}
+
+.day-number{
+  width:28px;
+  flex-shrink:0;
+  font-size:11px;
+  color:var(--ink-soft);
+  font-weight:600;
+  text-align:center;
+}
+
+.day-row.today .day-number{
+  color:var(--teal-900);
+}
+
+.member-dots{
+  display:flex;
+  gap:4px;
+  flex:1;
+}
+
+.member-dot{
+  width:17px;
+  height:17px;
+  border-radius:5px;
+  background:var(--sand-100);
+  border:1px solid var(--line);
+}
+
+.member-dot.read{
+  background:var(--gold-600);
+  border-color:var(--gold-600);
+}
+
+.day-total{
+  width:30px;
+  flex-shrink:0;
+  text-align:right;
+  font-size:10px;
+  color:var(--ink-soft);
+}
+
+.legend{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-top:14px;
+  padding-top:12px;
+  border-top:1px solid var(--line);
+  font-size:10px;
+  color:var(--ink-soft);
+}
+
+.legend-item{
+  display:flex;
+  align-items:center;
+  gap:5px;
+}
+
+.legend-dot{
+  width:12px;
+  height:12px;
+  border-radius:4px;
+  background:var(--sand-100);
+  border:1px solid var(--line);
+}
+
+.legend-dot.done{
+  background:var(--gold-600);
+  border-color:var(--gold-600);
+}
+
+.legend-dot.today{
+  outline:2px solid var(--teal-700);
+  outline-offset:1px;
+}
+
+
+/* ============================================================
+   INDIVIDUAL PROGRESS
+   ============================================================ */
+
+.member-progress-card{
+  background:var(--white);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:17px;
+  margin-bottom:20px;
+}
+
+.member-progress{
+  display:flex;
+  flex-direction:column;
+  gap:11px;
+}
+
+.member-row{
+  display:grid;
+  grid-template-columns:90px 1fr 38px;
+  align-items:center;
+  gap:8px;
+}
+
+.member-name{
+  font-size:11px;
+  color:var(--ink);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.member-bar{
+  height:7px;
+  background:var(--sand-100);
+  border-radius:999px;
+  overflow:hidden;
+}
+
+.member-bar-fill{
+  height:100%;
+  background:var(--gold-600);
+  border-radius:999px;
+}
+
+.member-total{
+  font-size:10px;
+  color:var(--ink-soft);
+  text-align:right;
+}
+
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+.footer-note{
+  text-align:center;
+  font-size:11px;
+  color:var(--ink-soft);
+  margin-top:20px;
+  line-height:1.6;
+}
+
+.footer-actions{
+  text-align:center;
+  margin-top:12px;
+}
+
+.footer-actions button{
+  background:none;
+  border:none;
+  color:var(--ink-soft);
+  font-size:11px;
+  text-decoration:underline;
+  cursor:pointer;
+}
+
+
+/* ============================================================
+   LOADING
+   ============================================================ */
+
+.loading{
+  text-align:center;
+  padding:70px 0;
+  color:var(--ink-soft);
+  font-size:14px;
+}
+
+
+/* ============================================================
+   LOCK SCREEN
+   ============================================================ */
+
+.lock-screen{
+  max-width:340px;
+  margin:70px auto;
+  text-align:center;
+}
+
+.lock-icon{
+  font-size:34px;
+  margin-bottom:10px;
+}
+
+.lock-screen p{
+  font-size:14px;
+  color:var(--ink-soft);
+  margin:0 0 18px;
+  line-height:1.5;
+}
+
+.lock-screen .title{
+  margin-bottom:6px;
+}
+
+.lock-screen input{
+  width:100%;
+  padding:15px;
+  border-radius:12px;
+  border:1px solid var(--line);
+  font-family:'Inter',sans-serif;
+  font-size:18px;
+  text-align:center;
+  letter-spacing:.18em;
+  background:var(--white);
+  color:var(--ink);
+  margin-bottom:10px;
+}
+
+.lock-screen input:focus{
+  outline:2px solid var(--gold-400);
+  outline-offset:1px;
+}
+
+.lock-screen button{
+  width:100%;
+  min-height:50px;
+  padding:14px;
+  border-radius:12px;
+  border:none;
+  background:var(--teal-700);
+  color:var(--white);
+  font-weight:600;
+  font-size:15px;
+  cursor:pointer;
+}
+
+.lock-screen button:disabled{
+  opacity:.6;
+}
+
+.lock-error{
+  font-size:13px;
+  color:#C0392B;
+  margin-top:10px;
+}
+
+
+@media(max-width:360px){
+
+  body{
+    padding-left:10px;
+    padding-right:10px;
+  }
+
+  .member-row{
+    grid-template-columns:75px 1fr 34px;
+  }
+
+  .member-dot{
+    width:15px;
+    height:15px;
+  }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="wrap" id="app">
+
+  <div class="loading">
+    Loading khatma tracker…
+  </div>
+
+</div>
+
+
+<script>
+
+
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwLgTaXumnrJtqB9qi7E-SZixaJ1CM3DTKt6uzDRb-IOaglESMmslkXYqrhe2FKBDU/exec";
+
+
+/* ============================================================
+   FAMILY MEMBERS
+   ============================================================ */
+
+const FAMILY = [
+  "Mama",
+  "Baba",
+  "Menna",
+  "Rahma",
+  "Ahmed",
+  "Ibrahim",
+  "Ismail",
+  "Mousa"
+];
+
+
+/* ============================================================
+   HIJRI MONTH NAMES
+   ============================================================ */
+
+const HIJRI_MONTH_NAMES = [
+
+  "Muharram",
+  "Safar",
+  "Rabi' al-awwal",
+  "Rabi' al-thani",
+  "Jumada al-awwal",
+  "Jumada al-thani",
+  "Rajab",
+  "Sha'ban",
+  "Ramadan",
+  "Shawwal",
+  "Dhu al-Qi'dah",
+  "Dhu al-Hijjah"
+
+];
+
+
+/* ============================================================
+   HIJRI DATE
+   ============================================================ */
+
+function getHijriInfo(date){
+
+  const parts =
+    new Intl.DateTimeFormat(
+      "en-u-ca-islamic-umalqura",
+      {
+        day:"numeric",
+        month:"numeric",
+        year:"numeric"
+      }
+    ).formatToParts(date);
+
+
+  const map = {};
+
+
+  parts.forEach(p => {
+
+    map[p.type] = p.value;
+
+  });
+
+
+  return {
+
+    day:parseInt(map.day,10),
+
+    month:parseInt(map.month,10),
+
+    year:parseInt(map.year,10)
+
+  };
+
+}
+
+
+/* ============================================================
+   INITIALS
+   ============================================================ */
+
+function initials(name){
+
+  return name
+    .trim()
+    .split(/\s+/)
+    .slice(0,2)
+    .map(w => w[0].toUpperCase())
+    .join("");
+
+}
+
+
+/* ============================================================
+   CONFIGURED
+   ============================================================ */
+
+function configured(){
+
+  return (
+    SCRIPT_URL &&
+    SCRIPT_URL.indexOf("PASTE_YOUR") === -1
+  );
+
+}
+
+
+/* ============================================================
+   SESSION
+   ============================================================ */
+
+function getSessionToken(){
+
+  try{
+
+    return localStorage.getItem(
+      "khatma_session"
+    );
+
+  }catch(e){
+
+    return null;
+
+  }
+
+}
+
+
+function saveSessionToken(token){
+
+  try{
+
+    localStorage.setItem(
+      "khatma_session",
+      token
+    );
+
+  }catch(e){}
+
+}
+
+
+function clearSession(){
+
+  try{
+
+    localStorage.removeItem(
+      "khatma_session"
+    );
+
+  }catch(e){}
+
+
+  try{
+
+    localStorage.removeItem(
+      "khatma_name"
+    );
+
+  }catch(e){}
+
+
+  state.name = null;
+
+}
+
+
+/* ============================================================
+   JSONP
+   ============================================================ */
+
+let jsonpCounter = 0;
+
+
+function jsonp(url){
+
+  return new Promise((resolve,reject) => {
+
+    const cbName =
+      "khatma_cb_" +
+      (jsonpCounter++);
+
+
+    const script =
+      document.createElement("script");
+
+
+    let finished = false;
+
+
+    const timeout =
+      setTimeout(() => {
+
+        if(finished) return;
+
+        finished = true;
+
+        cleanup();
+
+        reject(
+          new Error("Request timed out")
+        );
+
+      },15000);
+
+
+    function cleanup(){
+
+      clearTimeout(timeout);
+
+      try{
+
+        delete window[cbName];
+
+      }catch(e){
+
+        window[cbName] = undefined;
+
+      }
+
+      script.remove();
+
+    }
+
+
+    window[cbName] = (data) => {
+
+      if(finished) return;
+
+      finished = true;
+
+      cleanup();
+
+      resolve(data);
+
+    };
+
+
+    script.onerror = () => {
+
+      if(finished) return;
+
+      finished = true;
+
+      cleanup();
+
+      reject(
+        new Error("Request failed")
+      );
+
+    };
+
+
+    script.src =
+      url +
+      (url.includes("?") ? "&" : "?") +
+      "callback=" +
+      encodeURIComponent(cbName);
+
+
+    document.body.appendChild(script);
+
+  });
+
+}
+
+
+/* ============================================================
+   STATE
+   ============================================================ */
+
+let state = {
+
+  name:null,
+
+  monthKey:"",
+
+  dayRows:[],
+
+  hijri:null,
+
+  error:null
+
+};
+
+
+/* ============================================================
+   LOCK SCREEN
+   ============================================================ */
+
+function showLockScreen(errorMsg){
+
+  const app =
+    document.getElementById("app");
+
+
+  app.innerHTML = `
+
+    <div class="lock-screen">
+
+      <div class="lock-icon">
+        🌙
+      </div>
+
+      <p class="title">
+        Family Khatma
+      </p>
+
+      <p>
+        Enter the family PIN to open the tracker.
+      </p>
+
+      <input
+        type="password"
+        id="pinInput"
+        maxlength="12"
+        placeholder="PIN"
+        inputmode="numeric"
+        autocomplete="current-password"
+      >
+
+      <button onclick="submitPin()">
+        Unlock
+      </button>
+
+      ${
+        errorMsg
+        ? `
+          <div class="lock-error">
+            ${escapeHtml(errorMsg)}
+          </div>
+        `
+        : ""
+      }
+
+    </div>
+
+  `;
+
+
+  const input =
+    document.getElementById(
+      "pinInput"
+    );
+
+
+  if(input){
+
+    input.focus();
+
+
+    input.addEventListener(
+      "keydown",
+      e => {
+
+        if(e.key === "Enter"){
+
+          submitPin();
+
+        }
+
+      }
+    );
+
+  }
+
+}
+
+
+/* ============================================================
+   LOGIN
+   ============================================================ */
+
+function submitPin(){
+
+  const input =
+    document.getElementById(
+      "pinInput"
+    );
+
+
+  if(!input) return;
+
+
+  const pin =
+    input.value.trim();
+
+
+  if(!pin){
+
+    showLockScreen(
+      "Please enter the family PIN."
+    );
+
+    return;
+
+  }
+
+
+  const button =
+    document.querySelector(
+      ".lock-screen button"
+    );
+
+
+  if(button){
+
+    button.disabled = true;
+
+    button.textContent =
+      "Checking…";
+
+  }
+
+
+  jsonp(
+
+    `${SCRIPT_URL}` +
+    `?action=login` +
+    `&pin=${encodeURIComponent(pin)}`
+
+  )
+
+  .then(result => {
+
+    if(
+      result &&
+      result.success &&
+      result.token
+    ){
+
+      saveSessionToken(
+        result.token
+      );
+
+
+      loadState();
+
+    }else{
+
+      showLockScreen(
+        "That's not the right PIN."
+      );
+
+    }
+
+  })
+
+  .catch(() => {
+
+    showLockScreen(
+      "Could not connect to the tracker. Please try again."
+    );
+
+  });
+
+}
+
+
+/* ============================================================
+   API: READ
+   ============================================================ */
+
+async function apiRead(monthKey){
+
+  const token =
+    getSessionToken();
+
+
+  if(!token){
+
+    showLockScreen();
+
+    return null;
+
+  }
+
+
+  return await jsonp(
+
+    `${SCRIPT_URL}` +
+    `?action=read` +
+    `&monthKey=${encodeURIComponent(monthKey)}` +
+    `&token=${encodeURIComponent(token)}`
+
+  );
+
+}
+
+
+/* ============================================================
+   API: CHECK-IN
+   ============================================================ */
+
+async function apiCheckin(
+  monthKey,
+  day,
+  name
+){
+
+  const token =
+    getSessionToken();
+
+
+  if(!token){
+
+    showLockScreen();
+
+    return null;
+
+  }
+
+
+  return await jsonp(
+
+    `${SCRIPT_URL}` +
+    `?action=checkin` +
+    `&monthKey=${encodeURIComponent(monthKey)}` +
+    `&day=${encodeURIComponent(day)}` +
+    `&name=${encodeURIComponent(name)}` +
+    `&token=${encodeURIComponent(token)}`
+
+  );
+
+}
+
+
+/* ============================================================
+   LOAD STATE
+   ============================================================ */
+
+async function loadState(){
+
+  const now =
+    new Date();
+
+
+  state.hijri =
+    getHijriInfo(now);
+
+
+  state.monthKey =
+    `${state.hijri.year}-${String(
+      state.hijri.month
+    ).padStart(2,"0")}`;
+
+
+  try{
+
+    state.name =
+      localStorage.getItem(
+        "khatma_name"
+      );
+
+  }catch(e){
+
+    state.name = null;
+
+  }
+
+
+  const token =
+    getSessionToken();
+
+
+  if(!token){
+
+    showLockScreen();
+
+    return;
+
+  }
+
+
+  try{
+
+    const rows =
+      await apiRead(
+        state.monthKey
+      );
+
+
+    if(
+      rows &&
+      rows.error === "unauthorized"
+    ){
+
+      clearSession();
+
+      showLockScreen(
+        "Your session expired. Please enter the family PIN again."
+      );
+
+      return;
+
+    }
+
+
+    if(
+      rows &&
+      rows.error
+    ){
+
+      state.error =
+        rows.message ||
+        "Something went wrong.";
+
+      state.dayRows = [];
+
+    }else{
+
+      state.dayRows =
+        Array.isArray(rows)
+        ? rows
+        : [];
+
+      state.error = null;
+
+    }
+
+
+  }catch(e){
+
+    state.error =
+      "Could not reach the Google Sheet. Check your Apps Script deployment.";
+
+    state.dayRows = [];
+
+  }
+
+
+  render();
+
+}
+
+
+/* ============================================================
+   SAVE NAME
+   ============================================================ */
+
+function saveName(name){
+
+  if(!FAMILY.includes(name)){
+
+    return;
+
+  }
+
+
+  state.name =
+    name;
+
+
+  try{
+
+    localStorage.setItem(
+      "khatma_name",
+      name
+    );
+
+  }catch(e){}
+
+
+  render();
+
+}
+
+
+/* ============================================================
+   CHANGE NAME
+   ============================================================ */
+
+function promptRename(){
+
+  try{
+
+    localStorage.removeItem(
+      "khatma_name"
+    );
+
+  }catch(e){}
+
+
+  state.name = null;
+
+  render();
+
+}
+
+
+/* ============================================================
+   LOG OUT
+   ============================================================ */
+
+function logout(){
+
+  clearSession();
+
+  showLockScreen(
+    "You have been logged out."
+  );
+
+}
+
+
+/* ============================================================
+   CHECK-IN
+   ============================================================ */
+
+async function toggleCheckin(){
+
+  if(
+    !state.name ||
+    !configured()
+  ){
+
+    return;
+
+  }
+
+
+  const day =
+    state.hijri.day;
+
+
+  try{
+
+    const rows =
+      await apiCheckin(
+        state.monthKey,
+        day,
+        state.name
+      );
+
+
+    if(
+      rows &&
+      rows.error === "unauthorized"
+    ){
+
+      clearSession();
+
+      showLockScreen(
+        "Your session expired. Please enter the family PIN again."
+      );
+
+      return;
+
+    }
+
+
+    if(
+      rows &&
+      rows.error
+    ){
+
+      state.error =
+        rows.message ||
+        "Could not save your check-in.";
+
+    }else{
+
+      state.dayRows =
+        Array.isArray(rows)
+        ? rows
+        : [];
+
+      state.error = null;
+
+    }
+
+
+  }catch(e){
+
+    state.error =
+      "Could not save your check-in. Try again in a moment.";
+
+  }
+
+
+  render();
+
+}
+
+
+/* ============================================================
+   DATA HELPERS
+   ============================================================ */
+
+function rowsForDay(day){
+
+  return state.dayRows
+
+    .filter(
+      r =>
+        Number(r.day) === Number(day)
+    )
+
+    .map(
+      r => r.name
+    );
+
+}
+
+
+function namesForDay(day){
+
+  return new Set(
+    rowsForDay(day)
+  );
+
+}
+
+
+function totalCheckins(){
+
+  return state.dayRows.length;
+
+}
+
+
+function memberTotal(name){
+
+  return state.dayRows.filter(
+    r => r.name === name
+  ).length;
+
+}
+
+
+/* ============================================================
+   ESCAPE HTML
+   ============================================================ */
+
+function escapeHtml(value){
+
+  return String(value)
+
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+/* ============================================================
+   GET NUMBER OF DAYS IN CURRENT HIJRI MONTH
+   ============================================================ */
+
+function getDaysInCurrentHijriMonth(){
+
+  const currentMonth =
+    state.hijri.month;
+
+
+  const currentYear =
+    state.hijri.year;
+
+
+  /*
+   * Islamic months have 29 or 30 days.
+   *
+   * We check whether day 30 is still in the
+   * current Hijri month.
+   */
+
+  const future =
+    new Date();
+
+
+  future.setDate(
+    future.getDate() +
+    (30 - state.hijri.day)
+  );
+
+
+  const h =
+    getHijriInfo(future);
+
+
+  if(
+    h.month !== currentMonth ||
+    h.year !== currentYear
+  ){
+
+    return 29;
+
+  }
+
+
+  return 30;
+
+}
+
+
+/* ============================================================
+   TODAY'S FAMILY STATUS
+   ============================================================ */
+
+function renderFamilyStatus(){
+
+  const day =
+    state.hijri.day;
+
+
+  const todayList =
+    rowsForDay(day);
+
+
+  const count =
+    todayList.length;
+
+
+  const total =
+    FAMILY.length;
+
+
+  const percent =
+    total
+    ? Math.round(
+        count / total * 100
+      )
+    : 0;
+
+
+  const chips =
+    FAMILY.map(name => {
+
+      const read =
+        todayList.includes(name);
+
+
+      return `
+
+        <div
+          class="chip ${read ? "read" : ""}"
+        >
+
+          <span class="avatar">
+            ${initials(name)}
+          </span>
+
+          ${escapeHtml(name)}
+
+        </div>
+
+      `;
+
+    }).join("");
+
+
+  return `
+
+    <div class="today-summary">
+
+      <div>
+
+        <div class="today-count">
+          ${count}/${total}
+        </div>
+
+        <div class="today-count-label">
+          family members finished
+        </div>
+
+      </div>
+
+
+      <div class="today-bar">
+
+        <div
+          class="today-bar-fill"
+          style="width:${percent}%"
+        ></div>
+
+      </div>
+
+    </div>
+
+
+    <div class="family-grid">
+
+      ${chips}
+
+    </div>
+
+  `;
+
+}
+
+
+/* ============================================================
+   FAMILY MONTH PROGRESS
+   ============================================================ */
+
+function renderFamilyProgress(){
+
+  const daysInMonth =
+    getDaysInCurrentHijriMonth();
+
+
+  let rows = "";
+
+
+  for(
+    let day = 1;
+    day <= daysInMonth;
+    day++
+  ){
+
+    const list =
+      namesForDay(day);
+
+
+    const count =
+      list.size;
+
+
+    const isToday =
+      day === state.hijri.day;
+
+
+    const dots =
+      FAMILY.map(name => {
+
+        const read =
+          list.has(name);
+
+
+        return `
+
+          <div
+            class="member-dot ${read ? "read" : ""}"
+            title="${escapeHtml(name)}"
+          ></div>
+
+        `;
+
+      }).join("");
+
+
+    rows += `
+
+      <div
+        class="day-row ${isToday ? "today" : ""}"
+      >
+
+        <div class="day-number">
+          ${day}
+        </div>
+
+
+        <div class="member-dots">
+          ${dots}
+        </div>
+
+
+        <div class="day-total">
+          ${count}/${FAMILY.length}
+        </div>
+
+      </div>
+
+    `;
+
+  }
+
+
+  const possible =
+    daysInMonth *
+    FAMILY.length;
+
+
+  const completed =
+    totalCheckins();
+
+
+  const percent =
+    possible
+    ? Math.round(
+        completed / possible * 100
+      )
+    : 0;
+
+
+  return `
+
+    <div class="progress-header">
+
+      <div>
+
+        <div class="progress-big">
+          ${completed}/${possible}
+        </div>
+
+        <div class="progress-small">
+          family check-ins
+        </div>
+
+      </div>
+
+
+      <div class="progress-percent">
+        ${percent}%
+      </div>
+
+    </div>
+
+
+    <div class="progress-bar">
+
+      <div
+        class="progress-bar-fill"
+        style="width:${percent}%"
+      ></div>
+
+    </div>
+
+
+    <div class="day-progress-list">
+
+      ${rows}
+
+    </div>
+
+
+    <div class="legend">
+
+      <div class="legend-item">
+
+        <span class="legend-dot done"></span>
+
+        Completed
+
+      </div>
+
+
+      <div class="legend-item">
+
+        <span class="legend-dot today"></span>
+
+        Today
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+/* ============================================================
+   INDIVIDUAL PROGRESS
+   ============================================================ */
+
+function renderMemberProgress(){
+
+  const daysInMonth =
+    getDaysInCurrentHijriMonth();
+
+
+  return FAMILY.map(name => {
+
+    const total =
+      memberTotal(name);
+
+
+    const percent =
+      daysInMonth
+      ? Math.round(
+          total / daysInMonth * 100
+        )
+      : 0;
+
+
+    return `
+
+      <div class="member-row">
+
+        <div class="member-name">
+          ${escapeHtml(name)}
+        </div>
+
+
+        <div class="member-bar">
+
+          <div
+            class="member-bar-fill"
+            style="width:${percent}%"
+          ></div>
+
+        </div>
+
+
+        <div class="member-total">
+          ${total}/${daysInMonth}
+        </div>
+
+      </div>
+
+    `;
+
+  }).join("");
+
+}
+
+
+/* ============================================================
+   MAIN RENDER
+   ============================================================ */
+
+function render(){
+
+  const app =
+    document.getElementById("app");
+
+
+  if(!state.hijri){
+
+    app.innerHTML = `
+
+      <div class="loading">
+        Loading…
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  const day =
+    state.hijri.day;
+
+
+  const monthName =
+    HIJRI_MONTH_NAMES[
+      state.hijri.month - 1
+    ];
+
+
+  const todayList =
+    rowsForDay(day);
+
+
+  const iRead =
+    state.name
+    ? todayList.includes(
+        state.name
+      )
+    : false;
+
+
+  const daysInMonth =
+    getDaysInCurrentHijriMonth();
+
+
+  /* ==========================================================
+     ERROR
+     ========================================================== */
+
+  let errorBanner = "";
+
+
+  if(!configured()){
+
+    errorBanner = `
+
+      <div class="setup-banner">
+
+        This tracker isn't connected yet.
+
+        Add your Google Apps Script Web App URL
+        to <code>SCRIPT_URL</code> near the top
+        of this file.
+
+      </div>
+
+    `;
+
+  }else if(state.error){
+
+    errorBanner = `
+
+      <div class="error-banner">
+
+        ${escapeHtml(state.error)}
+
+      </div>
+
+    `;
+
+  }
+
+
+  /* ==========================================================
+     NAME BLOCK
+     ========================================================== */
+
+  let nameBlock;
+
+
+  if(state.name){
+
+    nameBlock = `
+
+      <div class="you-line">
+
+        Checking in as
+
+        <strong>
+          ${escapeHtml(state.name)}
+        </strong>
+
+        ·
+
+        <button
+          class="text-button"
+          onclick="promptRename()"
+        >
+          not you?
+        </button>
+
+      </div>
+
+    `;
+
+  }else{
+
+    nameBlock = `
+
+      <div class="who-label">
+        Who's checking in?
+      </div>
+
+
+      <div class="who-grid">
+
+        ${
+          FAMILY.map(name => `
+
+            <button
+              class="who-btn"
+              onclick="saveName('${escapeHtml(name)}')"
+            >
+              ${escapeHtml(name)}
+            </button>
+
+          `).join("")
+        }
+
+      </div>
+
+    `;
+
+  }
+
+
+  /* ==========================================================
+     BUTTON
+     ========================================================== */
+
+  const buttonText =
+    iRead
+    ? `✓  Read Juz ${day} today`
+    : `I read Juz ${day} today`;
+
+
+  /* ==========================================================
+     HTML
+     ========================================================== */
+
+  app.innerHTML = `
+
+    ${errorBanner}
+
+
+    <!-- HEADER -->
+
+    <div class="top">
+
+      <div class="hijri-date">
+
+        ${escapeHtml(monthName)}
+        ${state.hijri.year}H
+        ·
+        Day ${day} of ${daysInMonth}
+
+      </div>
+
+
+      <p class="title">
+        Family Khatma
+      </p>
+
+
+      <div class="subtitle">
+        One Juz together every day 🤍
+      </div>
+
+    </div>
+
+
+    <!-- TODAY'S JUZ -->
+
+    <div class="juz-card">
+
+      <div class="juz-label">
+        Today's reading
+      </div>
+
+
+      <div class="juz-star">
+
+        <svg
+          width="100"
+          height="100"
+          viewBox="0 0 112 112"
+          style="position:absolute;top:0;left:0;"
+        >
+
+          <polygon
+            points="56,4 66,30 94,26 76,48 100,64 72,66 76,94 56,74 36,94 40,66 12,64 36,48 18,26 46,30"
+            fill="#F3EFE4"
+            stroke="#B8873A"
+            stroke-width="2"
+          />
+
+        </svg>
+
+
+        <div class="juz-number">
+          ${day}
+        </div>
+
+      </div>
+
+
+      <div class="juz-sub">
+        Juz ${day}
+      </div>
+
+
+      <a
+        class="quran-link"
+        href="https://quran.com/en/juz/${day}"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Read Juz ${day} on Quran.com →
+      </a>
+
+
+      <button
+        class="checkin-btn ${iRead ? "done" : ""}"
+        ${
+          state.name && configured()
+          ? ""
+          : "disabled"
+        }
+        onclick="toggleCheckin()"
+      >
+
+        ${buttonText}
+
+      </button>
+
+
+      ${nameBlock}
+
+    </div>
+
+
+    <!-- TODAY'S FAMILY -->
+
+    <div class="section-title">
+      Today's family
+    </div>
+
+
+    <div class="family-card">
+
+      ${renderFamilyStatus()}
+
+    </div>
+
+
+    <!-- FAMILY PROGRESS -->
+
+    <div class="section-title">
+      Family progress
+    </div>
+
+
+    <div class="progress-card">
+
+      ${renderFamilyProgress()}
+
+    </div>
+
+
+    <!-- INDIVIDUAL PROGRESS -->
+
+    <div class="section-title">
+      Individual progress
+    </div>
+
+
+    <div class="member-progress-card">
+
+      <div class="member-progress">
+
+        ${renderMemberProgress()}
+
+      </div>
+
+    </div>
+
+
+    <!-- FOOTER -->
+
+    <div class="footer-note">
+
+      ${daysInMonth} days · ${daysInMonth} Juz
+
+      <br>
+
+      May Allah accept it from all of us 🤍
+
+    </div>
+
+
+    <div class="footer-actions">
+
+      <button onclick="logout()">
+        Lock tracker
+      </button>
+
+    </div>
+
+  `;
+
+}
+
+
+/* ============================================================
+   START
+   ============================================================ */
+
+if(getSessionToken()){
+
+  loadState();
+
+}else{
+
+  showLockScreen();
+
+}
+
+</script>
+
+</body>
+</html>
