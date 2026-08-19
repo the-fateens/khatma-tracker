@@ -873,26 +873,6 @@ a{
 
 }
 
-.debug-banner{
-
-  background:#EEF4F2;
-
-  border:1px solid var(--line);
-
-  color:var(--ink-soft);
-
-  border-radius:12px;
-
-  padding:10px 12px;
-
-  font-size:10px;
-
-  margin-bottom:15px;
-
-  line-height:1.5;
-
-}
-
 .lock-screen{
 
   max-width:340px;
@@ -1002,7 +982,7 @@ a{
    ============================================================ */
 
 const SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbwW80ELPHsEZdVndZg_HUYEsJbzN8KcsytauCtdXaROcvL35fmnA6qAZ1i9ugaVplFz/exec";
+  "https://script.google.com/macros/s/AKfycbx3iuyY1RSlC0yoycP2xjuuG8LRAWmZCq8QdW_wBJL5ZjMTIa6a3UtL8HPy_2anbZVy/exec";
 
 
 /* ============================================================
@@ -1067,28 +1047,60 @@ let state = {
 
   error:null,
 
-  lastUpdated:null,
-
-  lastServerResult:null
+  lastUpdated:null
 
 };
 
+
+/*
+ ==============================================================
+ REQUEST STATE
+
+ IMPORTANT:
+
+ Only ONE JSONP request is allowed at a time.
+
+ This prevents:
+
+   load #1
+   load #2
+   load #3
+
+ from all waiting simultaneously.
+
+ The previous implementation could have a request
+ alive for 20 seconds while another request started
+ every 10 seconds.
+ ==============================================================
+ */
+
+let activeRequest = null;
 
 let callbackCounter = 0;
 
 
 /* ============================================================
    JSONP API
-   ============================================================
-
-   IMPORTANT:
-   Every request gets a unique cache-busting parameter.
-
-   This prevents the browser / Google redirect layer from
-   returning an old cached [] response.
    ============================================================ */
 
 function api(params){
+
+  /*
+   If a request is already active, reject immediately.
+
+   The caller can decide whether to retry later.
+   */
+
+  if(activeRequest){
+
+    return Promise.reject(
+      new Error(
+        "Another request is already in progress."
+      )
+    );
+
+  }
+
 
   return new Promise(
     (resolve,reject)=>{
@@ -1101,65 +1113,163 @@ function api(params){
 
 
       const script =
-        document.createElement("script");
+        document.createElement(
+          "script"
+        );
 
 
       let finished = false;
 
+
+      /*
+       Give Apps Script enough time to respond.
+
+       More importantly, the callback is NOT
+       deleted when the timeout happens.
+
+       This prevents a late Apps Script response
+       from producing:
+
+       ReferenceError:
+       khatmaCallback_xxx is not defined
+      */
+
+      const timeoutMs =
+        30000;
+
+
       let timer;
 
 
-      function cleanup(){
+      function finish(){
 
-        clearTimeout(timer);
+        if(finished){
+
+          return false;
+
+        }
+
+
+        finished = true;
+
+
+        clearTimeout(
+          timer
+        );
+
+
+        if(
+          activeRequest &&
+          activeRequest.callbackName ===
+            callbackName
+        ){
+
+          activeRequest = null;
+
+        }
+
+
+        /*
+         Remove the script element.
+
+         DO NOT immediately delete the callback.
+         A late JSONP response may still arrive.
+        */
 
         try{
 
-          delete window[callbackName];
+          script.remove();
 
         }catch(e){}
 
-        if(script.parentNode){
 
-          script.parentNode.removeChild(
-            script
-          );
-
-        }
+        return true;
 
       }
 
 
-      timer = setTimeout(
-        ()=>{
+      timer =
+        setTimeout(
+          function(){
 
-          if(finished) return;
+            if(finished){
 
-          finished = true;
+              return;
 
-          cleanup();
+            }
 
-          reject(
-            new Error(
-              "Request timed out after 20 seconds."
-            )
-          );
 
-        },
-        20000
-      );
+            /*
+             Mark this request as finished.
 
+             But leave the callback alive.
+
+             This makes a late response harmless.
+            */
+
+            finished = true;
+
+
+            if(
+              activeRequest &&
+              activeRequest.callbackName ===
+                callbackName
+            ){
+
+              activeRequest = null;
+
+            }
+
+
+            try{
+
+              script.remove();
+
+            }catch(e){}
+
+
+            reject(
+              new Error(
+                "Request timed out after " +
+                timeoutMs +
+                " seconds."
+              )
+            );
+
+          },
+          timeoutMs
+        );
+
+
+      /*
+       Keep the callback alive after timeout.
+
+       If Google responds late, this function
+       simply does nothing.
+      */
 
       window[callbackName] =
         function(data){
 
-          if(finished) return;
+          if(finished){
 
-          finished = true;
+            return;
 
-          cleanup();
+          }
 
-          resolve(data);
+
+          if(
+            !finish()
+          ){
+
+            return;
+
+          }
+
+
+          resolve(
+            data
+          );
 
         };
 
@@ -1167,11 +1277,15 @@ function api(params){
       script.onerror =
         function(){
 
-          if(finished) return;
+          if(finished){
 
-          finished = true;
+            return;
 
-          cleanup();
+          }
+
+
+          finish();
+
 
           reject(
             new Error(
@@ -1182,41 +1296,28 @@ function api(params){
         };
 
 
-      /*
-       Add a unique timestamp to EVERY request.
-
-       This is deliberately not part of the application
-       logic. It only prevents caching.
-       */
-
-      const requestParams = {
-
-        ...params,
-
-        "_ts":
-          Date.now() +
-          "_" +
-          Math.random()
-            .toString(36)
-            .slice(2)
-
-      };
-
-
       const query =
         Object.entries(
-          requestParams
+          params
         )
 
           .map(
             ([key,value]) =>
-              encodeURIComponent(key) +
+              encodeURIComponent(
+                key
+              ) +
               "=" +
-              encodeURIComponent(value)
+              encodeURIComponent(
+                value
+              )
           )
 
           .join("&");
 
+
+      /*
+       Always add JSONP callback.
+      */
 
       script.src =
         SCRIPT_URL +
@@ -1226,6 +1327,17 @@ function api(params){
         encodeURIComponent(
           callbackName
         );
+
+
+      activeRequest = {
+
+        callbackName:
+          callbackName,
+
+        startedAt:
+          Date.now()
+
+      };
 
 
       document.body.appendChild(
@@ -1261,7 +1373,8 @@ function getHijri(date){
   parts.forEach(
     p => {
 
-      map[p.type] = p.value;
+      map[p.type] =
+        p.value;
 
     }
   );
@@ -1269,11 +1382,14 @@ function getHijri(date){
 
   return {
 
-    day:Number(map.day),
+    day:
+      Number(map.day),
 
-    month:Number(map.month),
+    month:
+      Number(map.month),
 
-    year:Number(map.year)
+    year:
+      Number(map.year)
 
   };
 
@@ -1291,7 +1407,9 @@ function daysInMonth(){
 
 
   const current =
-    getHijri(today);
+    getHijri(
+      today
+    );
 
 
   for(
@@ -1305,17 +1423,22 @@ function daysInMonth(){
 
 
     testDate.setDate(
-      today.getDate() + offset
+      today.getDate() +
+      offset
     );
 
 
     const h =
-      getHijri(testDate);
+      getHijri(
+        testDate
+      );
 
 
     if(
-      h.month !== current.month ||
-      h.year !== current.year
+      h.month !==
+        current.month ||
+      h.year !==
+        current.year
     ){
 
       return offset - 1;
@@ -1345,16 +1468,21 @@ function loadName(){
 
   }catch(e){
 
-    state.name = null;
+    state.name =
+      null;
 
   }
 
 }
 
 
-function saveName(name){
+function saveName(
+  name
+){
 
-  state.name = name;
+  state.name =
+    name;
+
 
   try{
 
@@ -1365,6 +1493,7 @@ function saveName(name){
 
   }catch(e){}
 
+
   render();
 
 }
@@ -1372,7 +1501,9 @@ function saveName(name){
 
 function changeName(){
 
-  state.name = null;
+  state.name =
+    null;
+
 
   try{
 
@@ -1381,6 +1512,7 @@ function changeName(){
     );
 
   }catch(e){}
+
 
   render();
 
@@ -1391,7 +1523,9 @@ function changeName(){
    LOGIN
    ============================================================ */
 
-function showLogin(message){
+function showLogin(
+  message
+){
 
   const app =
     document.getElementById(
@@ -1456,7 +1590,10 @@ function showLogin(message){
     "keydown",
     function(e){
 
-      if(e.key === "Enter"){
+      if(
+        e.key ===
+        "Enter"
+      ){
 
         login();
 
@@ -1500,11 +1637,14 @@ async function login(){
     const result =
       await api({
 
-        action:"read",
+        action:
+          "read",
 
-        monthKey:"__login__",
+        monthKey:
+          "__login__",
 
-        pin:pin
+        pin:
+          pin
 
       });
 
@@ -1512,7 +1652,7 @@ async function login(){
     if(
       result &&
       result.error ===
-      "unauthorized"
+        "unauthorized"
     ){
 
       showLogin(
@@ -1553,6 +1693,12 @@ async function login(){
 
   }catch(e){
 
+    console.error(
+      "Khatma login error:",
+      e
+    );
+
+
     showLogin(
       "Could not connect to the tracker."
     );
@@ -1568,14 +1714,22 @@ async function login(){
 
 async function load(){
 
-  if(state.refreshing){
+  /*
+   Never start another load while one is active.
+  */
+
+  if(
+    state.refreshing ||
+    activeRequest
+  ){
 
     return;
 
   }
 
 
-  state.refreshing = true;
+  state.refreshing =
+    true;
 
 
   try{
@@ -1583,28 +1737,14 @@ async function load(){
     loadName();
 
 
-    /*
-     Calculate today's Hijri date.
-     */
-
     state.hijri =
       getHijri(
         new Date()
       );
 
 
-    /*
-     Explicitly construct the exact format used
-     by Google Sheets:
-
-       1448-03
-
-     */
-
     state.monthKey =
-      String(
-        state.hijri.year
-      ) +
+      state.hijri.year +
       "-" +
       String(
         state.hijri.month
@@ -1618,7 +1758,8 @@ async function load(){
       daysInMonth();
 
 
-    let pin = null;
+    let pin =
+      null;
 
 
     try{
@@ -1633,7 +1774,8 @@ async function load(){
 
     if(!pin){
 
-      state.refreshing = false;
+      state.refreshing =
+        false;
 
       showLogin();
 
@@ -1643,35 +1785,28 @@ async function load(){
 
 
     /*
-     Fresh read from Apps Script.
-     */
+     ALWAYS fetch fresh data.
+    */
 
     const result =
       await api({
 
-        action:"read",
+        action:
+          "read",
 
         monthKey:
           state.monthKey,
 
-        pin:pin
+        pin:
+          pin
 
       });
-
-
-    /*
-     Keep the server response temporarily available
-     for debugging.
-     */
-
-    state.lastServerResult =
-      result;
 
 
     if(
       result &&
       result.error ===
-      "unauthorized"
+        "unauthorized"
     ){
 
       try{
@@ -1682,11 +1817,15 @@ async function load(){
 
       }catch(e){}
 
-      state.refreshing = false;
+
+      state.refreshing =
+        false;
+
 
       showLogin(
         "Your PIN is no longer valid."
       );
+
 
       return;
 
@@ -1701,37 +1840,25 @@ async function load(){
       state.error =
         result.error;
 
-    }else if(
-      !Array.isArray(result)
-    ){
-
-      state.error =
-        "Unexpected response from Google Sheets.";
-
     }else{
 
       /*
-       THIS IS THE IMPORTANT PART.
+       Google Sheets is the source of truth.
 
-       Completely replace the current data with
-       the latest response from Google Sheets.
-       */
+       Completely replace local state.
+      */
 
       state.rows =
-        result.map(
-          row => ({
-
-            day:
-              Number(row.day),
-
-            name:
-              String(row.name)
-
-          })
-        );
+        Array.isArray(
+          result
+        )
+        ? result
+        : [];
 
 
-      state.error = null;
+      state.error =
+        null;
+
 
       state.lastUpdated =
         new Date();
@@ -1741,18 +1868,21 @@ async function load(){
 
   }catch(e){
 
-    state.error =
-      "Could not fetch the latest data from Google Sheets.";
-
     console.error(
       "Khatma load error:",
       e
     );
 
+
+    state.error =
+      "Could not fetch the latest data from Google Sheets.";
+
   }
 
 
-  state.refreshing = false;
+  state.refreshing =
+    false;
+
 
   render();
 
@@ -1767,7 +1897,8 @@ async function refreshNow(){
 
   if(
     state.busy ||
-    state.refreshing
+    state.refreshing ||
+    activeRequest
   ){
 
     return;
@@ -1784,7 +1915,10 @@ async function refreshNow(){
    CHECK WHETHER PERSON HAS READ
    ============================================================ */
 
-function hasRead(day,name){
+function hasRead(
+  day,
+  name
+){
 
   return state.rows.some(
     row =>
@@ -1794,8 +1928,8 @@ function hasRead(day,name){
 
       &&
 
-      String(row.name).trim() ===
-      String(name).trim()
+      String(row.name) ===
+      String(name)
 
   );
 
@@ -1810,7 +1944,9 @@ async function checkin(){
 
   if(
     !state.name ||
-    state.busy
+    state.busy ||
+    state.refreshing ||
+    activeRequest
   ){
 
     return;
@@ -1818,7 +1954,8 @@ async function checkin(){
   }
 
 
-  let pin = null;
+  let pin =
+    null;
 
 
   try{
@@ -1844,28 +1981,42 @@ async function checkin(){
     state.hijri.day;
 
 
-  state.busy = true;
+  state.busy =
+    true;
 
-  state.error = null;
+  state.error =
+    null;
+
 
   render();
 
 
   try{
 
+    /*
+     WRITE ONLY.
+
+     Backend now returns immediately after
+     the Sheet write succeeds.
+    */
+
     const result =
       await api({
 
-        action:"checkin",
+        action:
+          "checkin",
 
         monthKey:
           state.monthKey,
 
-        day:day,
+        day:
+          day,
 
-        name:state.name,
+        name:
+          state.name,
 
-        pin:pin
+        pin:
+          pin
 
       });
 
@@ -1873,7 +2024,7 @@ async function checkin(){
     if(
       result &&
       result.error ===
-      "unauthorized"
+        "unauthorized"
     ){
 
       try{
@@ -1884,11 +2035,15 @@ async function checkin(){
 
       }catch(e){}
 
-      state.busy = false;
+
+      state.busy =
+        false;
+
 
       showLogin(
         "Your PIN is no longer valid."
       );
+
 
       return;
 
@@ -1903,9 +2058,13 @@ async function checkin(){
       state.error =
         result.error;
 
-      state.busy = false;
+
+      state.busy =
+        false;
+
 
       render();
+
 
       return;
 
@@ -1915,13 +2074,20 @@ async function checkin(){
     /*
      The write succeeded.
 
-     Do NOT trust the local state.
-     Fetch the Sheet again.
-     */
+     Release busy before loading because
+     load() itself controls the refresh state.
+    */
 
-    state.busy = false;
+    state.busy =
+      false;
+
+
+    /*
+     Now fetch the authoritative Sheet state.
+    */
 
     await load();
+
 
     return;
 
@@ -1929,9 +2095,10 @@ async function checkin(){
   }catch(e){
 
     console.error(
-      "Check-in error:",
+      "Khatma check-in error:",
       e
     );
+
 
     state.error =
       "Could not save your check-in. " +
@@ -1940,7 +2107,9 @@ async function checkin(){
   }
 
 
-  state.busy = false;
+  state.busy =
+    false;
+
 
   render();
 
@@ -1955,7 +2124,9 @@ async function undo(){
 
   if(
     !state.name ||
-    state.busy
+    state.busy ||
+    state.refreshing ||
+    activeRequest
   ){
 
     return;
@@ -1963,7 +2134,8 @@ async function undo(){
   }
 
 
-  let pin = null;
+  let pin =
+    null;
 
 
   try{
@@ -1989,9 +2161,12 @@ async function undo(){
     state.hijri.day;
 
 
-  state.busy = true;
+  state.busy =
+    true;
 
-  state.error = null;
+  state.error =
+    null;
+
 
   render();
 
@@ -2001,16 +2176,20 @@ async function undo(){
     const result =
       await api({
 
-        action:"undo",
+        action:
+          "undo",
 
         monthKey:
           state.monthKey,
 
-        day:day,
+        day:
+          day,
 
-        name:state.name,
+        name:
+          state.name,
 
-        pin:pin
+        pin:
+          pin
 
       });
 
@@ -2018,7 +2197,7 @@ async function undo(){
     if(
       result &&
       result.error ===
-      "unauthorized"
+        "unauthorized"
     ){
 
       try{
@@ -2029,11 +2208,15 @@ async function undo(){
 
       }catch(e){}
 
-      state.busy = false;
+
+      state.busy =
+        false;
+
 
       showLogin(
         "Your PIN is no longer valid."
       );
+
 
       return;
 
@@ -2048,18 +2231,29 @@ async function undo(){
       state.error =
         result.error;
 
-      state.busy = false;
+
+      state.busy =
+        false;
+
 
       render();
+
 
       return;
 
     }
 
 
-    state.busy = false;
+    state.busy =
+      false;
+
+
+    /*
+     Fetch fresh Sheet state after undo.
+    */
 
     await load();
+
 
     return;
 
@@ -2067,9 +2261,10 @@ async function undo(){
   }catch(e){
 
     console.error(
-      "Undo error:",
+      "Khatma undo error:",
       e
     );
+
 
     state.error =
       "Could not undo the check-in. " +
@@ -2078,7 +2273,9 @@ async function undo(){
   }
 
 
-  state.busy = false;
+  state.busy =
+    false;
+
 
   render();
 
@@ -2224,6 +2421,7 @@ function renderProgress(){
       const day =
         Number(row.day);
 
+
       const name =
         String(row.name);
 
@@ -2235,7 +2433,9 @@ function renderProgress(){
       ){
 
         uniqueKeys.add(
-          day + "|" + name
+          day +
+          "|" +
+          name
         );
 
       }
@@ -2258,7 +2458,8 @@ function renderProgress(){
       : 0;
 
 
-  let days = "";
+  let days =
+    "";
 
 
   for(
@@ -2268,7 +2469,8 @@ function renderProgress(){
   ){
 
     const isToday =
-      day === state.hijri.day;
+      day ===
+      state.hijri.day;
 
 
     const count =
@@ -2287,7 +2489,10 @@ function renderProgress(){
 
           <div
             class="person-dot ${
-              hasRead(day,name)
+              hasRead(
+                day,
+                name
+              )
                 ? "read"
                 : ""
             }"
@@ -2392,8 +2597,8 @@ function renderMembers(){
         row => {
 
           if(
-            String(row.name).trim() ===
-            String(name).trim()
+            String(row.name) ===
+            String(name)
           ){
 
             const day =
@@ -2405,7 +2610,9 @@ function renderMembers(){
               day <= totalDays
             ){
 
-              uniqueDays.add(day);
+              uniqueDays.add(
+                day
+              );
 
             }
 
@@ -2478,9 +2685,14 @@ function getLastUpdatedText(){
     state.lastUpdated.toLocaleTimeString(
       [],
       {
-        hour:"numeric",
-        minute:"2-digit",
-        second:"2-digit"
+        hour:
+          "numeric",
+
+        minute:
+          "2-digit",
+
+        second:
+          "2-digit"
       }
     )
   );
@@ -2503,7 +2715,11 @@ function render(){
   if(!state.hijri){
 
     app.innerHTML =
-      `<div class="loading">Loading…</div>`;
+      `
+        <div class="loading">
+          Loading…
+        </div>
+      `;
 
     return;
 
@@ -2608,7 +2824,8 @@ function render(){
         ${
           state.busy
             ? "Saving…"
-            : "✓ Read Juz " + day
+            : "✓ Read Juz " +
+              day
         }
 
       </button>
@@ -2655,36 +2872,6 @@ function render(){
   }
 
 
-  /*
-   Show a small diagnostic line.
-
-   This makes it immediately obvious what month
-   the browser is requesting and how many rows
-   Google Sheets returned.
-
-   You can remove this later if you don't want it.
-   */
-
-  const debugBlock = `
-
-    <div class="debug-banner">
-
-      Google Sheets:
-      <strong>${state.monthKey}</strong>
-      ·
-      ${state.rows.length} row(s) loaded
-
-      ${
-        state.lastUpdated
-          ? " · live"
-          : ""
-      }
-
-    </div>
-
-  `;
-
-
   app.innerHTML = `
 
     ${
@@ -2696,9 +2883,6 @@ function render(){
         `
         : ""
     }
-
-
-    ${debugBlock}
 
 
     <div class="top">
@@ -2859,7 +3043,13 @@ function render(){
         <button
           class="refresh-button"
           onclick="refreshNow()"
-          ${state.refreshing || state.busy ? "disabled" : ""}
+          ${
+            state.refreshing ||
+            state.busy ||
+            activeRequest
+              ? "disabled"
+              : ""
+          }
         >
           Refresh
         </button>
@@ -2894,6 +3084,7 @@ function logout(){
     );
 
   }catch(e){}
+
 
   showLogin();
 
@@ -2943,10 +3134,12 @@ if(
    AUTOMATIC REFRESH
    ============================================================
 
-   Fetch Google Sheets every 10 seconds.
+   Fetch fresh Google Sheets data every 10 seconds.
 
-   Every request has a unique cache-busting parameter,
-   so the browser cannot reuse an old response.
+   Because load() refuses to start while another request
+   is active, these refreshes can NEVER overlap.
+
+   Google Sheets remains the source of truth.
    ============================================================ */
 
 setInterval(
@@ -2955,7 +3148,8 @@ setInterval(
     if(
       state.hijri &&
       !state.busy &&
-      !state.refreshing
+      !state.refreshing &&
+      !activeRequest
     ){
 
       load();
