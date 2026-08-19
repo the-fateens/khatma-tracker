@@ -24,7 +24,7 @@
 
 <link
   rel="preconnect"
-  href="https://fonts.gstatic.com"
+  href="https://fonts.googleapis.com"
   crossorigin
 >
 
@@ -32,7 +32,6 @@
   href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@400;500;600;700&display=swap"
   rel="stylesheet"
 >
-
 
 <style>
 
@@ -131,16 +130,6 @@ a{
   color:var(--ink-soft);
 
   margin-top:2px;
-
-}
-
-.updated{
-
-  font-size:10px;
-
-  color:var(--ink-soft);
-
-  margin-top:5px;
 
 }
 
@@ -312,6 +301,14 @@ a{
 
 }
 
+.undo-btn:disabled{
+
+  opacity:.5;
+
+  cursor:default;
+
+}
+
 .who-label{
 
   font-size:12px;
@@ -349,6 +346,12 @@ a{
   font-weight:500;
 
   cursor:pointer;
+
+}
+
+.who-btn:active{
+
+  transform:scale(.98);
 
 }
 
@@ -465,6 +468,8 @@ a{
   background:var(--gold-600);
 
   border-radius:999px;
+
+  transition:width .25s ease;
 
 }
 
@@ -607,6 +612,8 @@ a{
   background:var(--gold-600);
 
   border-radius:999px;
+
+  transition:width .25s ease;
 
 }
 
@@ -754,6 +761,8 @@ a{
 
   border-radius:999px;
 
+  transition:width .25s ease;
+
 }
 
 .member-total{
@@ -763,26 +772,6 @@ a{
   color:var(--ink-soft);
 
   text-align:right;
-
-}
-
-.error-banner{
-
-  background:#FBEAEA;
-
-  border:1px solid #D99A92;
-
-  border-radius:12px;
-
-  padding:10px 12px;
-
-  margin-bottom:15px;
-
-  font-size:11px;
-
-  color:#7A231A;
-
-  text-align:center;
 
 }
 
@@ -797,6 +786,54 @@ a{
   line-height:1.6;
 
   margin-top:20px;
+
+}
+
+.refresh-row{
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  gap:8px;
+
+  margin-top:10px;
+
+}
+
+.refresh-note{
+
+  font-size:10px;
+
+  color:var(--ink-soft);
+
+}
+
+.refresh-button{
+
+  border:0;
+
+  background:none;
+
+  color:var(--teal-700);
+
+  text-decoration:underline;
+
+  font-size:10px;
+
+  padding:0;
+
+  cursor:pointer;
+
+}
+
+.refresh-button:disabled{
+
+  opacity:.5;
+
+  cursor:default;
 
 }
 
@@ -815,6 +852,24 @@ a{
   font-size:11px;
 
   cursor:pointer;
+
+}
+
+.error-banner{
+
+  background:#FBEAEA;
+
+  border:1px solid #C0392B;
+
+  color:#7A231A;
+
+  border-radius:12px;
+
+  padding:11px 13px;
+
+  font-size:12px;
+
+  margin-bottom:15px;
 
 }
 
@@ -911,9 +966,11 @@ a{
   id="app"
   class="wrap"
 >
+
   <div class="loading">
     Loading Family Khatma…
   </div>
+
 </div>
 
 
@@ -921,7 +978,7 @@ a{
 
 
 /* ============================================================
-   ONLY CHANGE THIS
+   GOOGLE APPS SCRIPT URL
    ============================================================ */
 
 const SCRIPT_URL =
@@ -947,7 +1004,7 @@ const FAMILY = [
 
 
 /* ============================================================
-   HIJRI MONTHS
+   HIJRI MONTH NAMES
    ============================================================ */
 
 const HIJRI_MONTHS = [
@@ -968,6 +1025,10 @@ const HIJRI_MONTHS = [
 ];
 
 
+/* ============================================================
+   STATE
+   ============================================================ */
+
 let state = {
 
   name:null,
@@ -975,6 +1036,8 @@ let state = {
   hijri:null,
 
   monthKey:"",
+
+  monthDays:null,
 
   rows:[],
 
@@ -1009,12 +1072,12 @@ function api(params){
 
 
       const script =
-        document.createElement(
-          "script"
-        );
+        document.createElement("script");
 
 
-      let done = false;
+      let finished = false;
+
+      let timer;
 
 
       function cleanup(){
@@ -1023,9 +1086,7 @@ function api(params){
 
         try{
 
-          delete window[
-            callbackName
-          ];
+          delete window[callbackName];
 
         }catch(e){}
 
@@ -1034,33 +1095,32 @@ function api(params){
       }
 
 
-      const timer =
-        setTimeout(
-          ()=>{
+      timer = setTimeout(
+        ()=>{
 
-            if(done) return;
+          if(finished) return;
 
-            done = true;
+          finished = true;
 
-            cleanup();
+          cleanup();
 
-            reject(
-              new Error(
-                "Request timed out"
-              )
-            );
+          reject(
+            new Error(
+              "Request timed out"
+            )
+          );
 
-          },
-          20000
-        );
+        },
+        20000
+      );
 
 
       window[callbackName] =
         function(data){
 
-          if(done) return;
+          if(finished) return;
 
-          done = true;
+          finished = true;
 
           cleanup();
 
@@ -1072,9 +1132,9 @@ function api(params){
       script.onerror =
         function(){
 
-          if(done) return;
+          if(finished) return;
 
-          done = true;
+          finished = true;
 
           cleanup();
 
@@ -1099,6 +1159,11 @@ function api(params){
 
           .join("&");
 
+
+      /*
+       IMPORTANT:
+       The backend expects "pin".
+       */
 
       script.src =
         SCRIPT_URL +
@@ -1141,7 +1206,11 @@ function getHijri(date){
 
 
   parts.forEach(
-    p => map[p.type] = p.value
+    p => {
+
+      map[p.type] = p.value;
+
+    }
   );
 
 
@@ -1159,7 +1228,7 @@ function getHijri(date){
 
 
 /* ============================================================
-   MONTH DAYS
+   DETERMINE CURRENT HIJRI MONTH LENGTH
    ============================================================ */
 
 function daysInMonth(){
@@ -1172,32 +1241,50 @@ function daysInMonth(){
     getHijri(today);
 
 
-  const test =
-    new Date(today);
+  /*
+   Find the first day of the next Hijri month.
+   The day before it is the final day of
+   the current month.
+   */
+
+  for(
+    let offset = 1;
+    offset <= 31;
+    offset++
+  ){
+
+    const testDate =
+      new Date(today);
 
 
-  test.setDate(
-    today.getDate() +
-    (30 - current.day)
-  );
+    testDate.setDate(
+      today.getDate() + offset
+    );
 
 
-  const future =
-    getHijri(test);
+    const h =
+      getHijri(testDate);
 
 
-  return (
-    future.month === current.month &&
-    future.year === current.year
-  )
-    ? 30
-    : 29;
+    if(
+      h.month !== current.month ||
+      h.year !== current.year
+    ){
+
+      return offset - 1;
+
+    }
+
+  }
+
+
+  return 30;
 
 }
 
 
 /* ============================================================
-   STORAGE
+   LOCAL STORAGE
    ============================================================ */
 
 function loadName(){
@@ -1322,9 +1409,7 @@ function showLogin(message){
     "keydown",
     function(e){
 
-      if(
-        e.key === "Enter"
-      ){
+      if(e.key === "Enter"){
 
         login();
 
@@ -1372,6 +1457,10 @@ async function login(){
 
         monthKey:"__login__",
 
+        /*
+         Backend expects "pin".
+         */
+
         pin:pin
 
       });
@@ -1417,11 +1506,9 @@ async function login(){
     }catch(e){}
 
 
-    load();
+    await load();
 
   }catch(e){
-
-    console.error(e);
 
     showLogin(
       "Could not connect to the tracker."
@@ -1433,41 +1520,24 @@ async function login(){
 
 
 /* ============================================================
-   REFRESH FROM GOOGLE SHEET
-   ============================================================ */
+   LOAD FROM GOOGLE SHEETS
+   ============================================================
 
-/*
    IMPORTANT:
 
-   The Google Sheet is the single source of truth.
+   This function ALWAYS replaces state.rows
+   with the data returned by Google Sheets.
 
-   This function NEVER modifies the Sheet.
+   It never merges local data into the Sheet data.
 
-   It only reads the current month's data and
-   replaces state.rows with exactly what the
-   Sheet returned.
-*/
+   Therefore Google Sheets is the source of truth.
+   ============================================================ */
 
-async function refreshFromSheet(){
+async function load(){
 
   if(state.refreshing){
 
-    return false;
-
-  }
-
-
-  const pin =
-    localStorage.getItem(
-      "khatma_pin"
-    );
-
-
-  if(!pin){
-
-    showLogin();
-
-    return false;
+    return;
 
   }
 
@@ -1476,6 +1546,58 @@ async function refreshFromSheet(){
 
 
   try{
+
+    loadName();
+
+
+    state.hijri =
+      getHijri(
+        new Date()
+      );
+
+
+    state.monthKey =
+      state.hijri.year +
+      "-" +
+      String(
+        state.hijri.month
+      ).padStart(
+        2,
+        "0"
+      );
+
+
+    state.monthDays =
+      daysInMonth();
+
+
+    let pin = null;
+
+
+    try{
+
+      pin =
+        localStorage.getItem(
+          "khatma_pin"
+        );
+
+    }catch(e){}
+
+
+    if(!pin){
+
+      state.refreshing = false;
+
+      showLogin();
+
+      return;
+
+    }
+
+
+    /*
+     ALWAYS perform a fresh read.
+     */
 
     const result =
       await api({
@@ -1504,14 +1626,13 @@ async function refreshFromSheet(){
 
       }catch(e){}
 
-
       state.refreshing = false;
 
       showLogin(
         "Your PIN is no longer valid."
       );
 
-      return false;
+      return;
 
     }
 
@@ -1521,114 +1642,43 @@ async function refreshFromSheet(){
       result.error
     ){
 
-      throw new Error(
-        result.error
-      );
+      state.error =
+        result.error;
+
+    }else{
+
+      /*
+       CRITICAL:
+
+       Replace the entire local dataset
+       with what Google Sheets returned.
+
+       This means changes made by ANY family
+       member are reflected here.
+       */
+
+      state.rows =
+        Array.isArray(result)
+        ? result
+        : [];
+
+      state.error = null;
+
+      state.lastUpdated =
+        new Date();
 
     }
 
 
-    /*
-     Replace the entire local dataset.
-
-     We do NOT merge it.
-
-     We do NOT append to it.
-
-     Whatever Google Sheets says is what
-     the UI displays.
-    */
-
-    state.rows =
-      Array.isArray(result)
-      ? result
-      : [];
-
-
-    state.error = null;
-
-    state.lastUpdated =
-      new Date();
-
-
-    state.refreshing = false;
-
-
-    return true;
-
   }catch(e){
 
-    console.error(
-      "Sheet refresh failed:",
-      e
-    );
-
-
-    /*
-     IMPORTANT:
-
-     Keep the last known good state.
-
-     Do NOT replace state.rows with [].
-    */
-
     state.error =
-      "Could not refresh from Google Sheets.";
-
-
-    state.refreshing = false;
-
-
-    return false;
-
-  }
-
-}
-
-
-/* ============================================================
-   LOAD
-   ============================================================ */
-
-async function load(){
-
-  loadName();
-
-
-  state.hijri =
-    getHijri(
-      new Date()
-    );
-
-
-  state.monthKey =
-    state.hijri.year +
-    "-" +
-    String(
-      state.hijri.month
-    ).padStart(
-      2,
-      "0"
-    );
-
-
-  const pin =
-    localStorage.getItem(
-      "khatma_pin"
-    );
-
-
-  if(!pin){
-
-    showLogin();
-
-    return;
+      "Could not fetch the latest data from Google Sheets.";
 
   }
 
 
-  await refreshFromSheet();
-
+  state.refreshing = false;
 
   render();
 
@@ -1636,20 +1686,43 @@ async function load(){
 
 
 /* ============================================================
-   CHECK READ STATUS
+   MANUAL REFRESH
    ============================================================ */
 
-function hasRead(
-  day,
-  name
-){
+async function refreshNow(){
+
+  if(
+    state.busy ||
+    state.refreshing
+  ){
+
+    return;
+
+  }
+
+
+  await load();
+
+}
+
+
+/* ============================================================
+   CHECK WHETHER PERSON HAS READ
+   ============================================================ */
+
+function hasRead(day,name){
 
   return state.rows.some(
     row =>
+
       Number(row.day) ===
-        Number(day) &&
+      Number(day)
+
+      &&
+
       String(row.name) ===
-        String(name)
+      String(name)
+
   );
 
 }
@@ -1671,10 +1744,17 @@ async function checkin(){
   }
 
 
-  const pin =
-    localStorage.getItem(
-      "khatma_pin"
-    );
+  let pin = null;
+
+
+  try{
+
+    pin =
+      localStorage.getItem(
+        "khatma_pin"
+      );
+
+  }catch(e){}
 
 
   if(!pin){
@@ -1684,6 +1764,10 @@ async function checkin(){
     return;
 
   }
+
+
+  const day =
+    state.hijri.day;
 
 
   state.busy = true;
@@ -1696,11 +1780,11 @@ async function checkin(){
   try{
 
     /*
-     Tell Apps Script to toggle this
-     person's check-in.
+     Write to Google Sheets.
 
-     We DO NOT modify state.rows here.
-    */
+     The backend returns the Sheet data,
+     but we deliberately DO NOT rely on it.
+     */
 
     const result =
       await api({
@@ -1710,14 +1794,11 @@ async function checkin(){
         monthKey:
           state.monthKey,
 
-        day:
-          state.hijri.day,
+        day:day,
 
-        name:
-          state.name,
+        name:state.name,
 
-        pin:
-          pin
+        pin:pin
 
       });
 
@@ -1728,9 +1809,13 @@ async function checkin(){
       "unauthorized"
     ){
 
-      localStorage.removeItem(
-        "khatma_pin"
-      );
+      try{
+
+        localStorage.removeItem(
+          "khatma_pin"
+        );
+
+      }catch(e){}
 
       state.busy = false;
 
@@ -1743,36 +1828,45 @@ async function checkin(){
     }
 
 
+    if(
+      result &&
+      result.error
+    ){
+
+      state.error =
+        result.error;
+
+      state.busy = false;
+
+      render();
+
+      return;
+
+    }
+
+
     /*
-     Ignore the returned data.
+     IMPORTANT:
 
-     Re-read the Sheet explicitly so the
-     source of truth is always the Sheet.
-    */
+     The write succeeded.
 
-    await refreshFromSheet();
+     Now fetch the Sheet again.
+     This guarantees the UI displays
+     the actual server state.
+     */
+
+    state.busy = false;
+
+    await load();
+
+    return;
 
 
   }catch(e){
 
-    console.error(
-      "Check-in failed:",
-      e
-    );
-
-
     state.error =
-      "Could not save your check-in.";
-
-
-    /*
-     Re-read anyway.
-
-     The request may have succeeded on the
-     server even if the response failed.
-    */
-
-    await refreshFromSheet();
+      "Could not save your check-in. " +
+      "Please try again.";
 
   }
 
@@ -1800,10 +1894,17 @@ async function undo(){
   }
 
 
-  const pin =
-    localStorage.getItem(
-      "khatma_pin"
-    );
+  let pin = null;
+
+
+  try{
+
+    pin =
+      localStorage.getItem(
+        "khatma_pin"
+      );
+
+  }catch(e){}
 
 
   if(!pin){
@@ -1813,6 +1914,10 @@ async function undo(){
     return;
 
   }
+
+
+  const day =
+    state.hijri.day;
 
 
   state.busy = true;
@@ -1825,62 +1930,84 @@ async function undo(){
   try{
 
     /*
-     Your Apps Script uses toggleCheckin().
+     Use the dedicated backend undo action.
+     */
 
-     Therefore calling "checkin" again for an
-     existing row removes it.
+    const result =
+      await api({
 
-     We deliberately use action:"checkin"
-     rather than relying on a separate undo
-     endpoint.
-    */
+        action:"undo",
 
-    await api({
+        monthKey:
+          state.monthKey,
 
-      action:"checkin",
+        day:day,
 
-      monthKey:
-        state.monthKey,
+        name:state.name,
 
-      day:
-        state.hijri.day,
+        pin:pin
 
-      name:
-        state.name,
+      });
 
-      pin:
-        pin
 
-    });
+    if(
+      result &&
+      result.error ===
+      "unauthorized"
+    ){
+
+      try{
+
+        localStorage.removeItem(
+          "khatma_pin"
+        );
+
+      }catch(e){}
+
+      state.busy = false;
+
+      showLogin(
+        "Your PIN is no longer valid."
+      );
+
+      return;
+
+    }
+
+
+    if(
+      result &&
+      result.error
+    ){
+
+      state.error =
+        result.error;
+
+      state.busy = false;
+
+      render();
+
+      return;
+
+    }
 
 
     /*
-     Re-read the Sheet.
+     Re-read Google Sheets after undo.
+     */
 
-     Never remove the row locally.
-    */
+    state.busy = false;
 
-    await refreshFromSheet();
+    await load();
+
+    return;
 
 
   }catch(e){
 
-    console.error(
-      "Undo failed:",
-      e
-    );
-
-
     state.error =
-      "Could not undo the check-in.";
-
-
-    /*
-     The request could still have reached
-     Apps Script, so refresh regardless.
-    */
-
-    await refreshFromSheet();
+      "Could not undo the check-in. " +
+      "Please try again.";
 
   }
 
@@ -1893,23 +2020,19 @@ async function undo(){
 
 
 /* ============================================================
-   TODAY'S FAMILY
+   TODAY'S FAMILY STATUS
    ============================================================ */
 
 function renderToday(){
 
-  const readers =
+  const count =
     FAMILY.filter(
       name =>
         hasRead(
           state.hijri.day,
           name
         )
-    );
-
-
-  const count =
-    readers.length;
+    ).length;
 
 
   const total =
@@ -1983,7 +2106,9 @@ function renderToday(){
 
               <div
                 class="chip ${
-                  read ? "read" : ""
+                  read
+                    ? "read"
+                    : ""
                 }"
               >
 
@@ -2015,7 +2140,7 @@ function renderToday(){
 function renderProgress(){
 
   const totalDays =
-    daysInMonth();
+    state.monthDays;
 
 
   const total =
@@ -2024,20 +2149,41 @@ function renderProgress(){
 
 
   /*
-   Only count rows belonging to known family
-   members.
+   Count unique day/person combinations.
+   */
 
-   This protects the progress display from
-   accidental/old rows in the Sheet.
-  */
+  const uniqueKeys =
+    new Set();
+
+
+  state.rows.forEach(
+    row => {
+
+      const day =
+        Number(row.day);
+
+      const name =
+        String(row.name);
+
+
+      if(
+        day >= 1 &&
+        day <= totalDays &&
+        FAMILY.includes(name)
+      ){
+
+        uniqueKeys.add(
+          day + "|" + name
+        );
+
+      }
+
+    }
+  );
+
 
   const completed =
-    state.rows.filter(
-      row =>
-        FAMILY.includes(
-          String(row.name)
-        )
-    ).length;
+    uniqueKeys.size;
 
 
   const percent =
@@ -2079,10 +2225,7 @@ function renderProgress(){
 
           <div
             class="person-dot ${
-              hasRead(
-                day,
-                name
-              )
+              hasRead(day,name)
                 ? "read"
                 : ""
             }"
@@ -2097,7 +2240,9 @@ function renderProgress(){
 
       <div
         class="day-row ${
-          isToday ? "today" : ""
+          isToday
+            ? "today"
+            : ""
         }"
       >
 
@@ -2171,29 +2316,53 @@ function renderProgress(){
 function renderMembers(){
 
   const totalDays =
-    daysInMonth();
+    state.monthDays;
 
 
   return FAMILY.map(
     name => {
 
-      const count =
-        state.rows.filter(
-          row =>
+      const uniqueDays =
+        new Set();
+
+
+      state.rows.forEach(
+        row => {
+
+          if(
             String(row.name) ===
             String(name)
-        ).length;
+          ){
+
+            const day =
+              Number(row.day);
+
+
+            if(
+              day >= 1 &&
+              day <= totalDays
+            ){
+
+              uniqueDays.add(day);
+
+            }
+
+          }
+
+        }
+      );
+
+
+      const count =
+        uniqueDays.size;
 
 
       const percent =
         totalDays
-          ? Math.min(
-              100,
-              Math.round(
-                count /
-                totalDays *
-                100
-              )
+          ? Math.round(
+              count /
+              totalDays *
+              100
             )
           : 0;
 
@@ -2230,52 +2399,29 @@ function renderMembers(){
 
 
 /* ============================================================
-   UPDATED TEXT
+   LAST UPDATED TEXT
    ============================================================ */
 
-function renderUpdated(){
+function getLastUpdatedText(){
 
   if(!state.lastUpdated){
 
-    return "";
+    return "Not loaded yet";
 
   }
 
 
-  const seconds =
-    Math.round(
-      (
-        Date.now() -
-        state.lastUpdated.getTime()
-      ) / 1000
-    );
-
-
-  if(seconds < 5){
-
-    return "Updated just now";
-
-  }
-
-
-  if(seconds < 60){
-
-    return "Updated " +
-      seconds +
-      "s ago";
-
-  }
-
-
-  const minutes =
-    Math.floor(
-      seconds / 60
-    );
-
-
-  return "Updated " +
-    minutes +
-    "m ago";
+  return (
+    "Last synced " +
+    state.lastUpdated.toLocaleTimeString(
+      [],
+      {
+        hour:"numeric",
+        minute:"2-digit",
+        second:"2-digit"
+      }
+    )
+  );
 
 }
 
@@ -2295,9 +2441,7 @@ function render(){
   if(!state.hijri){
 
     app.innerHTML =
-      `<div class="loading">
-        Loading…
-      </div>`;
+      `<div class="loading">Loading…</div>`;
 
     return;
 
@@ -2396,13 +2540,13 @@ function render(){
             : ""
         }"
         onclick="undo()"
+        ${state.busy ? "disabled" : ""}
       >
 
         ${
           state.busy
             ? "Saving…"
-            : "✓ Read Juz " +
-              day
+            : "✓ Read Juz " + day
         }
 
       </button>
@@ -2431,6 +2575,7 @@ function render(){
             : ""
         }"
         onclick="checkin()"
+        ${state.busy ? "disabled" : ""}
       >
 
         ${
@@ -2448,20 +2593,16 @@ function render(){
   }
 
 
-  const totalDays =
-    daysInMonth();
-
-
   app.innerHTML = `
 
     ${
       state.error
-      ? `
-        <div class="error-banner">
-          ${state.error}
-        </div>
-      `
-      : ""
+        ? `
+          <div class="error-banner">
+            ${state.error}
+          </div>
+        `
+        : ""
     }
 
 
@@ -2484,11 +2625,6 @@ function render(){
 
       <div class="subtitle">
         One Juz together every day 🤍
-      </div>
-
-
-      <div class="updated">
-        ${renderUpdated()}
       </div>
 
     </div>
@@ -2611,14 +2747,30 @@ function render(){
 
     <div class="footer">
 
-      ${totalDays} days ·
-      ${totalDays} Juz
+      ${state.monthDays} days ·
+      ${state.monthDays} Juz
 
       <br>
 
       May Allah accept it from all of us 🤍
 
-      <br>
+
+      <div class="refresh-row">
+
+        <span class="refresh-note">
+          ${getLastUpdatedText()}
+        </span>
+
+        <button
+          class="refresh-button"
+          onclick="refreshNow()"
+          ${state.refreshing || state.busy ? "disabled" : ""}
+        >
+          Refresh
+        </button>
+
+      </div>
+
 
       <button
         class="lock-link"
@@ -2648,135 +2800,13 @@ function logout(){
 
   }catch(e){}
 
-
   showLogin();
 
 }
 
 
 /* ============================================================
-   AUTOMATIC REFRESH
-   ============================================================ */
-
-/*
-   This is what makes changes from OTHER family
-   members appear automatically.
-
-   Example:
-
-   Mama checks in on her phone
-           ↓
-      Google Sheet
-           ↓
-   Your page polls every 10 seconds
-           ↓
-      refreshFromSheet()
-           ↓
-         render()
-           ↓
-   Mama appears as ✓
-*/
-
-
-setInterval(
-  async function(){
-
-    if(
-      document.visibilityState !==
-      "visible"
-    ){
-
-      return;
-
-    }
-
-
-    const pin =
-      localStorage.getItem(
-        "khatma_pin"
-      );
-
-
-    if(!pin){
-
-      return;
-
-    }
-
-
-    if(
-      state.busy ||
-      state.refreshing
-    ){
-
-      return;
-
-    }
-
-
-    /*
-     Make sure the Hijri date is still
-     current in case the day changes while
-     the page remains open.
-    */
-
-    const currentHijri =
-      getHijri(
-        new Date()
-      );
-
-
-    const newMonthKey =
-      currentHijri.year +
-      "-" +
-      String(
-        currentHijri.month
-      ).padStart(
-        2,
-        "0"
-      );
-
-
-    /*
-     If the Hijri day/month changed while
-     the page was open, update the state.
-    */
-
-    if(
-      currentHijri.day !==
-        state.hijri.day ||
-      newMonthKey !==
-        state.monthKey
-    ){
-
-      state.hijri =
-        currentHijri;
-
-      state.monthKey =
-        newMonthKey;
-
-    }
-
-
-    /*
-     ALWAYS re-read the Sheet.
-
-     This is what picks up another person's
-     check-in or undo.
-    */
-
-    await refreshFromSheet();
-
-
-    render();
-
-  },
-  10000
-);
-
-
-/* ============================================================
-   START
+   INITIAL LOAD
    ============================================================ */
 
 if(
@@ -2812,6 +2842,43 @@ if(
   load();
 
 }
+
+
+/* ============================================================
+   AUTOMATIC REFRESH
+   ============================================================
+
+   Every 10 seconds the page fetches the
+   current month's data directly from
+   Google Sheets through Apps Script.
+
+   This means:
+
+   - Your changes appear after saving.
+   - Other family members' changes appear
+     automatically.
+   - The UI does not maintain its own
+     authoritative copy of the data.
+
+   Google Sheets remains the source of truth.
+   ============================================================ */
+
+setInterval(
+  function(){
+
+    if(
+      state.hijri &&
+      !state.busy &&
+      !state.refreshing
+    ){
+
+      load();
+
+    }
+
+  },
+  10000
+);
 
 </script>
 
