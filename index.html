@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
@@ -17,7 +16,6 @@
 >
 
 <title>Family Khatma</title>
-
 
 <link
   rel="preconnect"
@@ -38,17 +36,12 @@
 
 <style>
 
-/* ============================================================
-   COLORS
-   ============================================================ */
-
 :root{
 
   --teal-900:#0B3D38;
   --teal-700:#0F544D;
 
   --gold-600:#B8873A;
-  --gold-400:#D6A85C;
 
   --sand-50:#F3EFE4;
   --sand-100:#EAE3D2;
@@ -61,11 +54,6 @@
   --white:#FFFDF8;
 
 }
-
-
-/* ============================================================
-   BASE
-   ============================================================ */
 
 *{
   box-sizing:border-box;
@@ -94,18 +82,11 @@ a{
 
 .wrap{
 
-  width:100%;
-
   max-width:480px;
 
   margin:0 auto;
 
 }
-
-
-/* ============================================================
-   HEADER
-   ============================================================ */
 
 .top{
 
@@ -124,8 +105,6 @@ a{
   text-transform:uppercase;
 
   color:var(--ink-soft);
-
-  font-weight:500;
 
   margin-bottom:5px;
 
@@ -155,11 +134,6 @@ a{
 
 }
 
-
-/* ============================================================
-   TODAY CARD
-   ============================================================ */
-
 .card{
 
   background:var(--white);
@@ -168,16 +142,11 @@ a{
 
   border-radius:20px;
 
-  padding:22px 18px;
+  padding:21px 18px;
 
   margin-bottom:20px;
 
 }
-
-
-/* ============================================================
-   JUZ
-   ============================================================ */
 
 .juz-card{
 
@@ -207,7 +176,7 @@ a{
 
   height:100px;
 
-  margin:0 auto 10px;
+  margin:0 auto 9px;
 
   position:relative;
 
@@ -241,7 +210,7 @@ a{
 
   color:var(--ink-soft);
 
-  margin-bottom:8px;
+  margin-bottom:7px;
 
 }
 
@@ -262,15 +231,8 @@ a{
 }
 
 .quran-link:hover{
-
   text-decoration:underline;
-
 }
-
-
-/* ============================================================
-   CHECK IN BUTTON
-   ============================================================ */
 
 .checkin-btn{
 
@@ -294,12 +256,6 @@ a{
 
 }
 
-.checkin-btn:active{
-
-  transform:scale(.98);
-
-}
-
 .checkin-btn.done{
 
   background:#E6EFE5;
@@ -310,28 +266,29 @@ a{
 
 }
 
+.checkin-btn:active{
+
+  transform:scale(.98);
+
+}
+
 .checkin-btn.busy{
 
-  opacity:.65;
+  opacity:.6;
 
   pointer-events:none;
 
 }
 
-
-/* ============================================================
-   UNDO
-   ============================================================ */
-
 .undo-btn{
 
   display:block;
 
-  margin:9px auto 0;
-
-  background:none;
+  margin:8px auto 0;
 
   border:0;
+
+  background:none;
 
   color:var(--ink-soft);
 
@@ -339,16 +296,9 @@ a{
 
   font-size:12px;
 
-  cursor:pointer;
-
   padding:4px 8px;
 
 }
-
-
-/* ============================================================
-   NAME
-   ============================================================ */
 
 .who-label{
 
@@ -386,8 +336,6 @@ a{
 
   font-weight:500;
 
-  cursor:pointer;
-
 }
 
 .you-line{
@@ -418,16 +366,9 @@ a{
 
   font-size:12px;
 
-  cursor:pointer;
-
   padding:0;
 
 }
-
-
-/* ============================================================
-   SECTION TITLE
-   ============================================================ */
 
 .section-title{
 
@@ -444,11 +385,6 @@ a{
   margin:0 0 10px 2px;
 
 }
-
-
-/* ============================================================
-   TODAY FAMILY
-   ============================================================ */
 
 .family-summary{
 
@@ -513,8 +449,6 @@ a{
   background:var(--gold-600);
 
   border-radius:999px;
-
-  transition:width .3s ease;
 
 }
 
@@ -590,11 +524,6 @@ a{
 
 }
 
-
-/* ============================================================
-   MONTH PROGRESS
-   ============================================================ */
-
 .progress-header{
 
   display:flex;
@@ -663,14 +592,7 @@ a{
 
   border-radius:999px;
 
-  transition:width .3s ease;
-
 }
-
-
-/* ============================================================
-   DAILY GRID
-   ============================================================ */
 
 .day-list{
 
@@ -692,9 +614,9 @@ a{
 
   gap:7px;
 
-  border-radius:8px;
-
   padding:4px;
+
+  border-radius:8px;
 
 }
 
@@ -715,12 +637,6 @@ a{
   font-weight:600;
 
   color:var(--ink-soft);
-
-}
-
-.day-row.today .day-number{
-
-  color:var(--teal-900);
 
 }
 
@@ -767,11 +683,6 @@ a{
   color:var(--ink-soft);
 
 }
-
-
-/* ============================================================
-   INDIVIDUAL
-   ============================================================ */
 
 .member-list{
 
@@ -839,11 +750,6 @@ a{
 
 }
 
-
-/* ============================================================
-   FOOTER
-   ============================================================ */
-
 .footer{
 
   text-align:center;
@@ -860,11 +766,11 @@ a{
 
 .lock-link{
 
-  margin-top:10px;
-
-  background:none;
+  margin-top:9px;
 
   border:0;
+
+  background:none;
 
   text-decoration:underline;
 
@@ -872,14 +778,7 @@ a{
 
   font-size:11px;
 
-  cursor:pointer;
-
 }
-
-
-/* ============================================================
-   LOCK SCREEN
-   ============================================================ */
 
 .lock-screen{
 
@@ -951,11 +850,6 @@ a{
 
 }
 
-
-/* ============================================================
-   LOADING
-   ============================================================ */
-
 .loading{
 
   text-align:center;
@@ -963,27 +857,6 @@ a{
   padding:70px 0;
 
   color:var(--ink-soft);
-
-  font-size:14px;
-
-}
-
-
-@media(max-width:360px){
-
-  body{
-
-    padding-left:10px;
-    padding-right:10px;
-
-  }
-
-  .person-dot{
-
-    width:15px;
-    height:15px;
-
-  }
 
 }
 
@@ -994,16 +867,13 @@ a{
 
 <body>
 
-
 <div
   id="app"
   class="wrap"
 >
-
   <div class="loading">
     Loading Family Khatma…
   </div>
-
 </div>
 
 
@@ -1011,15 +881,15 @@ a{
 
 
 /* ============================================================
-   ONLY THING TO CHANGE IN THIS FILE
+   ONLY CHANGE THIS
    ============================================================ */
 
 const SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbyVEJQG1UDCENfQouxV4eWFwYCYDiMA0Kxvgi28BV5HXcunOsCQINNNQ8zY4TIIqrmT/exec";
+  "https://script.google.com/macros/s/AKfycbzx2hcU_RI_ZIQ4dJVFrZ7mSZJsGQXqonDOm3OYI5MVGfWYLYnfFDxLFk1Xbj-s4JQK/exec";
 
 
 /* ============================================================
-   FAMILY MEMBERS
+   FAMILY
    ============================================================ */
 
 const FAMILY = [
@@ -1058,15 +928,9 @@ const HIJRI_MONTHS = [
 ];
 
 
-/* ============================================================
-   STATE
-   ============================================================ */
-
 let state = {
 
   name:null,
-
-  token:null,
 
   hijri:null,
 
@@ -1079,6 +943,135 @@ let state = {
   error:null
 
 };
+
+
+let callbackCounter = 0;
+
+
+/* ============================================================
+   JSONP
+   ============================================================ */
+
+function api(params){
+
+  return new Promise(
+    (resolve,reject)=>{
+
+      const callbackName =
+        "khatmaCallback_" +
+        Date.now() +
+        "_" +
+        callbackCounter++;
+
+
+      const script =
+        document.createElement(
+          "script"
+        );
+
+
+      let done = false;
+
+
+      function cleanup(){
+
+        clearTimeout(timer);
+
+        try{
+          delete window[
+            callbackName
+          ];
+        }catch(e){}
+
+        script.remove();
+
+      }
+
+
+      const timer =
+        setTimeout(
+          ()=>{
+
+            if(done) return;
+
+            done = true;
+
+            cleanup();
+
+            reject(
+              new Error(
+                "Request timed out"
+              )
+            );
+
+          },
+          20000
+        );
+
+
+      window[callbackName] =
+        function(data){
+
+          if(done) return;
+
+          done = true;
+
+          cleanup();
+
+          resolve(data);
+
+        };
+
+
+      script.onerror =
+        function(){
+
+          if(done) return;
+
+          done = true;
+
+          cleanup();
+
+          reject(
+            new Error(
+              "Google Apps Script request failed"
+            )
+          );
+
+        };
+
+
+      const query =
+        Object.entries(params)
+
+          .map(
+            ([key,value]) =>
+              encodeURIComponent(key) +
+              "=" +
+              encodeURIComponent(value)
+          )
+
+          .join("&");
+
+
+      script.src =
+        SCRIPT_URL +
+        "?" +
+        query +
+        "&callback=" +
+        encodeURIComponent(
+          callbackName
+        );
+
+
+      document.body.appendChild(
+        script
+      );
+
+    }
+  );
+
+}
 
 
 /* ============================================================
@@ -1120,17 +1113,57 @@ function getHijri(date){
 
 
 /* ============================================================
+   MONTH DAYS
+   ============================================================ */
+
+function daysInMonth(){
+
+  /*
+   Most Hijri months are 29 or 30 days.
+
+   We determine this from the Umm al-Qura
+   calendar rather than assuming 30.
+   */
+
+  const today =
+    new Date();
+
+
+  const current =
+    getHijri(today);
+
+
+  const test =
+    new Date(today);
+
+
+  test.setDate(
+    today.getDate() +
+    (30 - current.day)
+  );
+
+
+  const future =
+    getHijri(test);
+
+
+  return (
+    future.month === current.month &&
+    future.year === current.year
+  )
+    ? 30
+    : 29;
+
+}
+
+
+/* ============================================================
    STORAGE
    ============================================================ */
 
-function loadStorage(){
+function loadName(){
 
   try{
-
-    state.token =
-      localStorage.getItem(
-        "khatma_session"
-      );
 
     state.name =
       localStorage.getItem(
@@ -1160,17 +1193,11 @@ function saveName(name){
 }
 
 
-function logout(){
-
-  state.token = null;
+function changeName(){
 
   state.name = null;
 
   try{
-
-    localStorage.removeItem(
-      "khatma_session"
-    );
 
     localStorage.removeItem(
       "khatma_name"
@@ -1178,130 +1205,13 @@ function logout(){
 
   }catch(e){}
 
-  showLogin();
+  render();
 
 }
 
 
 /* ============================================================
-   JSONP
-   ============================================================ */
-
-let callbackCounter = 0;
-
-
-function request(url){
-
-  return new Promise(
-    (resolve,reject) => {
-
-      const callbackName =
-        "khatma_" +
-        callbackCounter++;
-
-
-      const script =
-        document.createElement(
-          "script"
-        );
-
-
-      let finished = false;
-
-
-      const timer =
-        setTimeout(
-          () => {
-
-            if(finished) return;
-
-            finished = true;
-
-            cleanup();
-
-            reject(
-              new Error(
-                "Request timed out"
-              )
-            );
-
-          },
-          15000
-        );
-
-
-      function cleanup(){
-
-        clearTimeout(timer);
-
-        try{
-
-          delete window[
-            callbackName
-          ];
-
-        }catch(e){}
-
-        script.remove();
-
-      }
-
-
-      window[callbackName] =
-        function(data){
-
-          if(finished) return;
-
-          finished = true;
-
-          cleanup();
-
-          resolve(data);
-
-        };
-
-
-      script.onerror =
-        function(){
-
-          if(finished) return;
-
-          finished = true;
-
-          cleanup();
-
-          reject(
-            new Error(
-              "Request failed"
-            )
-          );
-
-        };
-
-
-      script.src =
-        url +
-        (url.includes("?")
-          ? "&"
-          : "?") +
-        "callback=" +
-        encodeURIComponent(
-          callbackName
-        );
-
-
-      document.body.appendChild(
-        script
-      );
-
-    }
-  );
-
-}
-
-
-/* ============================================================
-   LOGIN SCREEN
+   LOGIN
    ============================================================ */
 
 function showLogin(message){
@@ -1325,15 +1235,13 @@ function showLogin(message){
       </p>
 
       <p>
-        Enter the family PIN to open
-        the tracker.
+        Enter the family PIN
       </p>
 
       <input
-        id="pin"
+        id="pinInput"
         type="password"
         inputmode="numeric"
-        autocomplete="current-password"
         placeholder="PIN"
       >
 
@@ -1360,7 +1268,7 @@ function showLogin(message){
 
   const input =
     document.getElementById(
-      "pin"
+      "pinInput"
     );
 
 
@@ -1393,7 +1301,7 @@ async function login(){
 
   const input =
     document.getElementById(
-      "pin"
+      "pinInput"
     );
 
 
@@ -1415,20 +1323,30 @@ async function login(){
   try{
 
     const result =
-      await request(
+      await api({
 
-        SCRIPT_URL +
-        "?action=login" +
-        "&pin=" +
-        encodeURIComponent(pin)
+        action:"read",
 
-      );
+        monthKey:"__login__",
 
+        pin:pin
+
+      });
+
+
+    /*
+     Important:
+
+     A correct PIN returns an empty array
+     for the fake month key.
+
+     An incorrect PIN returns unauthorized.
+     */
 
     if(
-      !result ||
-      !result.success ||
-      !result.token
+      result &&
+      result.error ===
+      "unauthorized"
     ){
 
       showLogin(
@@ -1440,15 +1358,26 @@ async function login(){
     }
 
 
-    state.token =
-      result.token;
+    if(
+      result &&
+      result.error
+    ){
+
+      showLogin(
+        "Server error: " +
+        result.error
+      );
+
+      return;
+
+    }
 
 
     try{
 
       localStorage.setItem(
-        "khatma_session",
-        result.token
+        "khatma_pin",
+        pin
       );
 
     }catch(e){}
@@ -1459,7 +1388,7 @@ async function login(){
   }catch(e){
 
     showLogin(
-      "Could not connect. Please try again."
+      "Could not connect to the tracker."
     );
 
   }
@@ -1468,10 +1397,13 @@ async function login(){
 
 
 /* ============================================================
-   LOAD DATA
+   LOAD
    ============================================================ */
 
 async function load(){
+
+  loadName();
+
 
   state.hijri =
     getHijri(
@@ -1484,10 +1416,26 @@ async function load(){
     "-" +
     String(
       state.hijri.month
-    ).padStart(2,"0");
+    ).padStart(
+      2,
+      "0"
+    );
 
 
-  if(!state.token){
+  let pin = null;
+
+
+  try{
+
+    pin =
+      localStorage.getItem(
+        "khatma_pin"
+      );
+
+  }catch(e){}
+
+
+  if(!pin){
 
     showLogin();
 
@@ -1499,20 +1447,16 @@ async function load(){
   try{
 
     const result =
-      await request(
+      await api({
 
-        SCRIPT_URL +
-        "?action=read" +
-        "&monthKey=" +
-        encodeURIComponent(
-          state.monthKey
-        ) +
-        "&token=" +
-        encodeURIComponent(
-          state.token
-        )
+        action:"read",
 
-      );
+        monthKey:
+          state.monthKey,
+
+        pin:pin
+
+      });
 
 
     if(
@@ -1521,39 +1465,38 @@ async function load(){
       "unauthorized"
     ){
 
-      logout();
+      try{
+
+        localStorage.removeItem(
+          "khatma_pin"
+        );
+
+      }catch(e){}
+
+      showLogin(
+        "Your PIN is no longer valid."
+      );
 
       return;
 
     }
 
 
-    if(
-      result &&
-      result.error
-    ){
+    state.rows =
+      Array.isArray(result)
+      ? result
+      : [];
 
-      state.error =
-        "Could not load the tracker.";
 
-      state.rows = [];
-
-    }else{
-
-      state.rows =
-        Array.isArray(result)
-        ? result
-        : [];
-
-      state.error = null;
-
-    }
+    state.error = null;
 
 
   }catch(e){
 
     state.error =
-      "Could not connect to the Google Sheet.";
+      "Could not reach Google Sheets.";
+
+    state.rows = [];
 
   }
 
@@ -1564,51 +1507,7 @@ async function load(){
 
 
 /* ============================================================
-   DAYS IN HIJRI MONTH
-   ============================================================ */
-
-function daysInMonth(){
-
-  const current =
-    state.hijri;
-
-
-  const date =
-    new Date();
-
-
-  /*
-   Check whether the Gregorian date corresponding
-   to Hijri day 30 still belongs to this month.
-   */
-
-  date.setDate(
-    date.getDate() +
-    (30 - current.day)
-  );
-
-
-  const future =
-    getHijri(date);
-
-
-  if(
-    future.month === current.month &&
-    future.year === current.year
-  ){
-
-    return 30;
-
-  }
-
-
-  return 29;
-
-}
-
-
-/* ============================================================
-   CHECK WHETHER PERSON READ
+   READ STATUS
    ============================================================ */
 
 function hasRead(
@@ -1618,76 +1517,10 @@ function hasRead(
 
   return state.rows.some(
     row =>
-      Number(row.day) === Number(day) &&
+      Number(row.day) ===
+        Number(day) &&
       row.name === name
   );
-
-}
-
-
-/* ============================================================
-   TODAY'S NAMES
-   ============================================================ */
-
-function todayReaders(){
-
-  return FAMILY.filter(
-    name =>
-      hasRead(
-        state.hijri.day,
-        name
-      )
-  );
-
-}
-
-
-/* ============================================================
-   UPDATE LOCAL STATE
-   ============================================================ */
-
-function addLocalCheckin(
-  day,
-  name
-){
-
-  if(
-    hasRead(
-      day,
-      name
-    )
-  ){
-
-    return;
-
-  }
-
-
-  state.rows.push({
-
-    day:Number(day),
-
-    name:name
-
-  });
-
-}
-
-
-function removeLocalCheckin(
-  day,
-  name
-){
-
-  state.rows =
-    state.rows.filter(
-      row =>
-        !(
-          Number(row.day) ===
-          Number(day) &&
-          row.name === name
-        )
-    );
 
 }
 
@@ -1708,18 +1541,45 @@ async function checkin(){
   }
 
 
+  const pin =
+    localStorage.getItem(
+      "khatma_pin"
+    );
+
+
+  if(!pin){
+
+    showLogin();
+
+    return;
+
+  }
+
+
   const day =
     state.hijri.day;
 
 
   /*
-   Optimistic UI update.
+   Update immediately.
    */
 
-  addLocalCheckin(
-    day,
-    state.name
-  );
+  if(
+    !hasRead(
+      day,
+      state.name
+    )
+  ){
+
+    state.rows.push({
+
+      day:day,
+
+      name:state.name
+
+    });
+
+  }
 
 
   state.busy = true;
@@ -1730,39 +1590,20 @@ async function checkin(){
   try{
 
     const result =
-      await request(
+      await api({
 
-        SCRIPT_URL +
-        "?action=checkin" +
-        "&monthKey=" +
-        encodeURIComponent(
-          state.monthKey
-        ) +
-        "&day=" +
-        day +
-        "&name=" +
-        encodeURIComponent(
-          state.name
-        ) +
-        "&token=" +
-        encodeURIComponent(
-          state.token
-        )
+        action:"checkin",
 
-      );
+        monthKey:
+          state.monthKey,
 
+        day:day,
 
-    if(
-      result &&
-      result.error ===
-      "unauthorized"
-    ){
+        name:state.name,
 
-      logout();
+        pin:pin
 
-      return;
-
-    }
+      });
 
 
     if(
@@ -1771,43 +1612,25 @@ async function checkin(){
     ){
 
       /*
-       Server rejected it.
-       Roll back optimistic update.
+       Reload from server.
        */
 
-      removeLocalCheckin(
-        day,
-        state.name
-      );
+      await load();
 
-      state.error =
-        "Could not save your check-in.";
-
-    }else{
-
-      /*
-       Server is source of truth.
-       */
-
-      state.rows =
-        Array.isArray(result)
-        ? result
-        : state.rows;
-
-      state.error = null;
+      return;
 
     }
 
 
+    state.rows =
+      Array.isArray(result)
+      ? result
+      : state.rows;
+
+
   }catch(e){
 
-    removeLocalCheckin(
-      day,
-      state.name
-    );
-
-    state.error =
-      "Could not save your check-in.";
+    await load();
 
   }
 
@@ -1835,18 +1658,28 @@ async function undo(){
   }
 
 
+  const pin =
+    localStorage.getItem(
+      "khatma_pin"
+    );
+
+
   const day =
     state.hijri.day;
 
 
   /*
-   Optimistic update.
+   Remove immediately.
    */
 
-  removeLocalCheckin(
-    day,
-    state.name
-  );
+  state.rows =
+    state.rows.filter(
+      row =>
+        !(
+          Number(row.day) === day &&
+          row.name === state.name
+        )
+    );
 
 
   state.busy = true;
@@ -1857,79 +1690,31 @@ async function undo(){
   try{
 
     const result =
-      await request(
+      await api({
 
-        SCRIPT_URL +
-        "?action=undo" +
-        "&monthKey=" +
-        encodeURIComponent(
-          state.monthKey
-        ) +
-        "&day=" +
-        day +
-        "&name=" +
-        encodeURIComponent(
-          state.name
-        ) +
-        "&token=" +
-        encodeURIComponent(
-          state.token
-        )
+        action:"undo",
 
-      );
+        monthKey:
+          state.monthKey,
+
+        day:day,
+
+        name:state.name,
+
+        pin:pin
+
+      });
 
 
-    if(
-      result &&
-      result.error ===
-      "unauthorized"
-    ){
-
-      logout();
-
-      return;
-
-    }
-
-
-    if(
-      result &&
-      result.error
-    ){
-
-      /*
-       Roll back.
-       */
-
-      addLocalCheckin(
-        day,
-        state.name
-      );
-
-      state.error =
-        "Could not undo the check-in.";
-
-    }else{
-
-      state.rows =
-        Array.isArray(result)
-        ? result
-        : state.rows;
-
-      state.error = null;
-
-    }
+    state.rows =
+      Array.isArray(result)
+      ? result
+      : state.rows;
 
 
   }catch(e){
 
-    addLocalCheckin(
-      day,
-      state.name
-    );
-
-    state.error =
-      "Could not undo the check-in.";
+    await load();
 
   }
 
@@ -1942,102 +1727,35 @@ async function undo(){
 
 
 /* ============================================================
-   RENAME
+   TODAY
    ============================================================ */
 
-function changeName(){
-
-  state.name = null;
-
-
-  try{
-
-    localStorage.removeItem(
-      "khatma_name"
-    );
-
-  }catch(e){}
-
-
-  render();
-
-}
-
-
-/* ============================================================
-   INITIALS
-   ============================================================ */
-
-function initials(name){
-
-  return name
-    .split(/\s+/)
-    .slice(0,2)
-    .map(
-      x => x[0]
-    )
-    .join("")
-    .toUpperCase();
-
-}
-
-
-/* ============================================================
-   TODAY FAMILY HTML
-   ============================================================ */
-
-function renderTodayFamily(){
+function renderToday(){
 
   const readers =
-    todayReaders();
-
-
-  const total =
-    FAMILY.length;
+    FAMILY.filter(
+      name =>
+        hasRead(
+          state.hijri.day,
+          name
+        )
+    );
 
 
   const count =
     readers.length;
 
 
+  const total =
+    FAMILY.length;
+
+
   const percent =
     total
-    ? Math.round(
-        count / total * 100
-      )
-    : 0;
-
-
-  const chips =
-    FAMILY.map(
-      name => {
-
-        const read =
-          readers.includes(
-            name
-          );
-
-
-        return `
-
-          <div
-            class="chip ${
-              read ? "read" : ""
-            }"
-          >
-
-            <span class="avatar">
-              ${initials(name)}
-            </span>
-
-            ${name}
-
-          </div>
-
-        `;
-
-      }
-    ).join("");
+      ? Math.round(
+          count / total * 100
+        )
+      : 0;
 
 
   return `
@@ -2071,7 +1789,49 @@ function renderTodayFamily(){
 
     <div class="family-grid">
 
-      ${chips}
+      ${
+        FAMILY.map(
+          name => {
+
+            const read =
+              hasRead(
+                state.hijri.day,
+                name
+              );
+
+
+            const initials =
+              name
+                .split(/\s+/)
+                .map(
+                  x => x[0]
+                )
+                .join("")
+                .slice(0,2)
+                .toUpperCase();
+
+
+            return `
+
+              <div
+                class="chip ${
+                  read ? "read" : ""
+                }"
+              >
+
+                <span class="avatar">
+                  ${initials}
+                </span>
+
+                ${name}
+
+              </div>
+
+            `;
+
+          }
+        ).join("")
+      }
 
     </div>
 
@@ -2084,13 +1844,13 @@ function renderTodayFamily(){
    MONTH PROGRESS
    ============================================================ */
 
-function renderMonthProgress(){
+function renderProgress(){
 
   const totalDays =
     daysInMonth();
 
 
-  const totalPossible =
+  const total =
     totalDays *
     FAMILY.length;
 
@@ -2100,16 +1860,16 @@ function renderMonthProgress(){
 
 
   const percent =
-    totalPossible
-    ? Math.round(
-        completed /
-        totalPossible *
-        100
-      )
-    : 0;
+    total
+      ? Math.round(
+          completed /
+          total *
+          100
+        )
+      : 0;
 
 
-  let rows = "";
+  let days = "";
 
 
   for(
@@ -2118,34 +1878,8 @@ function renderMonthProgress(){
     day++
   ){
 
-    const today =
+    const isToday =
       day === state.hijri.day;
-
-
-    const dots =
-      FAMILY.map(
-        name => {
-
-          const read =
-            hasRead(
-              day,
-              name
-            );
-
-
-          return `
-
-            <div
-              class="person-dot ${
-                read ? "read" : ""
-              }"
-              title="${name}"
-            ></div>
-
-          `;
-
-        }
-      ).join("");
 
 
     const count =
@@ -2158,11 +1892,28 @@ function renderMonthProgress(){
       ).length;
 
 
-    rows += `
+    const dots =
+      FAMILY.map(
+        name => `
+
+          <div
+            class="person-dot ${
+              hasRead(day,name)
+                ? "read"
+                : ""
+            }"
+            title="${name}"
+          ></div>
+
+        `
+      ).join("");
+
+
+    days += `
 
       <div
         class="day-row ${
-          today ? "today" : ""
+          isToday ? "today" : ""
         }"
       >
 
@@ -2192,15 +1943,14 @@ function renderMonthProgress(){
       <div>
 
         <div class="progress-number">
-          ${completed}/${totalPossible}
+          ${completed}/${total}
         </div>
 
         <div class="progress-label">
-          family check-ins this month
+          family check-ins
         </div>
 
       </div>
-
 
       <div class="progress-percent">
         ${percent}%
@@ -2221,7 +1971,7 @@ function renderMonthProgress(){
 
     <div class="day-list">
 
-      ${rows}
+      ${days}
 
     </div>
 
@@ -2231,7 +1981,7 @@ function renderMonthProgress(){
 
 
 /* ============================================================
-   INDIVIDUAL PROGRESS
+   MEMBERS
    ============================================================ */
 
 function renderMembers(){
@@ -2243,7 +1993,7 @@ function renderMembers(){
   return FAMILY.map(
     name => {
 
-      const completed =
+      const count =
         state.rows.filter(
           row =>
             row.name === name
@@ -2252,12 +2002,12 @@ function renderMembers(){
 
       const percent =
         totalDays
-        ? Math.round(
-            completed /
-            totalDays *
-            100
-          )
-        : 0;
+          ? Math.round(
+              count /
+              totalDays *
+              100
+            )
+          : 0;
 
 
       return `
@@ -2268,7 +2018,6 @@ function renderMembers(){
             ${name}
           </div>
 
-
           <div class="member-bar">
 
             <div
@@ -2278,9 +2027,8 @@ function renderMembers(){
 
           </div>
 
-
           <div class="member-total">
-            ${completed}/${totalDays}
+            ${count}/${totalDays}
           </div>
 
         </div>
@@ -2294,7 +2042,7 @@ function renderMembers(){
 
 
 /* ============================================================
-   MAIN RENDER
+   RENDER
    ============================================================ */
 
 function render(){
@@ -2307,13 +2055,8 @@ function render(){
 
   if(!state.hijri){
 
-    app.innerHTML = `
-
-      <div class="loading">
-        Loading…
-      </div>
-
-    `;
+    app.innerHTML =
+      `<div class="loading">Loading…</div>`;
 
     return;
 
@@ -2324,32 +2067,30 @@ function render(){
     state.hijri.day;
 
 
-  const monthName =
+  const month =
     HIJRI_MONTHS[
       state.hijri.month - 1
     ];
 
 
   const read =
-    state.name
-    ? hasRead(
-        day,
-        state.name
-      )
-    : false;
+    state.name &&
+    hasRead(
+      day,
+      state.name
+    );
 
 
-  let nameHtml;
+  let nameBlock;
 
 
   if(state.name){
 
-    nameHtml = `
+    nameBlock = `
 
       <div class="you-line">
 
         Checking in as
-
         <strong>
           ${state.name}
         </strong>
@@ -2369,12 +2110,11 @@ function render(){
 
   }else{
 
-    nameHtml = `
+    nameBlock = `
 
       <div class="who-label">
         Who's checking in?
       </div>
-
 
       <div class="who-grid">
 
@@ -2400,12 +2140,12 @@ function render(){
   }
 
 
-  let actionHtml;
+  let button;
 
 
   if(read){
 
-    actionHtml = `
+    button = `
 
       <button
         class="checkin-btn done ${
@@ -2416,8 +2156,8 @@ function render(){
 
         ${
           state.busy
-          ? "Saving…"
-          : "✓  Read Juz " + day + " today"
+            ? "Saving…"
+            : "✓ Read Juz " + day
         }
 
       </button>
@@ -2426,18 +2166,15 @@ function render(){
       <button
         class="undo-btn"
         onclick="undo()"
-        ${state.busy ? "disabled" : ""}
       >
-
         Undo
-
       </button>
 
     `;
 
   }else{
 
-    actionHtml = `
+    button = `
 
       <button
         class="checkin-btn ${
@@ -2448,8 +2185,10 @@ function render(){
 
         ${
           state.busy
-          ? "Saving…"
-          : "I read Juz " + day + " today"
+            ? "Saving…"
+            : "I read Juz " +
+              day +
+              " today"
         }
 
       </button>
@@ -2461,27 +2200,20 @@ function render(){
 
   app.innerHTML = `
 
-
-    <!-- ======================================================
-         HEADER
-         ====================================================== -->
-
     <div class="top">
 
       <div class="hijri-date">
 
-        ${monthName}
+        ${month}
         ${state.hijri.year}H
         ·
         Day ${day}
 
       </div>
 
-
       <p class="title">
         Family Khatma
       </p>
-
 
       <div class="subtitle">
         One Juz together every day 🤍
@@ -2489,10 +2221,6 @@ function render(){
 
     </div>
 
-
-    <!-- ======================================================
-         TODAY'S JUZ
-         ====================================================== -->
 
     <div class="card juz-card">
 
@@ -2561,54 +2289,39 @@ function render(){
       </a>
 
 
-      ${actionHtml}
+      ${button}
 
 
-      ${nameHtml}
+      ${nameBlock}
 
     </div>
 
-
-    <!-- ======================================================
-         TODAY'S FAMILY
-         ====================================================== -->
 
     <div class="section-title">
       Today's family
     </div>
 
-
     <div class="card">
 
-      ${renderTodayFamily()}
+      ${renderToday()}
 
     </div>
 
-
-    <!-- ======================================================
-         MONTH PROGRESS
-         ====================================================== -->
 
     <div class="section-title">
       Family progress
     </div>
 
-
     <div class="card">
 
-      ${renderMonthProgress()}
+      ${renderProgress()}
 
     </div>
 
-
-    <!-- ======================================================
-         INDIVIDUAL PROGRESS
-         ====================================================== -->
 
     <div class="section-title">
       Individual progress
     </div>
-
 
     <div class="card">
 
@@ -2620,10 +2333,6 @@ function render(){
 
     </div>
 
-
-    <!-- ======================================================
-         FOOTER
-         ====================================================== -->
 
     <div class="footer">
 
@@ -2647,8 +2356,26 @@ function render(){
 
     </div>
 
-
   `;
+
+}
+
+
+/* ============================================================
+   LOGOUT
+   ============================================================ */
+
+function logout(){
+
+  try{
+
+    localStorage.removeItem(
+      "khatma_pin"
+    );
+
+  }catch(e){}
+
+  showLogin();
 
 }
 
@@ -2657,21 +2384,37 @@ function render(){
    START
    ============================================================ */
 
-loadStorage();
-
-
 if(
-  state.token &&
-  SCRIPT_URL.indexOf(
+  !SCRIPT_URL ||
+  SCRIPT_URL.includes(
     "PASTE_YOUR"
-  ) === -1
+  )
 ){
 
-  load();
+  document.getElementById(
+    "app"
+  ).innerHTML = `
+
+    <div class="card">
+
+      <strong>
+        Setup needed
+      </strong>
+
+      <p>
+        Put your Google Apps Script
+        Web App URL ending in
+        <code>/exec</code>
+        into SCRIPT_URL.
+      </p>
+
+    </div>
+
+  `;
 
 }else{
 
-  showLogin();
+  load();
 
 }
 
