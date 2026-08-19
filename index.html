@@ -1,68 +1,105 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="robots" content="noindex, nofollow">
 
-<title>Family Khatma Tracker</title>
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta
+  name="robots"
+  content="noindex, nofollow"
+>
+
+<title>Family Khatma</title>
+
+
+<link
+  rel="preconnect"
+  href="https://fonts.googleapis.com"
+>
+
+<link
+  rel="preconnect"
+  href="https://fonts.gstatic.com"
+  crossorigin
+>
+
+<link
+  href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@400;500;600;700&display=swap"
+  rel="stylesheet"
+>
+
 
 <style>
 
+/* ============================================================
+   COLORS
+   ============================================================ */
+
 :root{
+
   --teal-900:#0B3D38;
   --teal-700:#0F544D;
+
   --gold-600:#B8873A;
   --gold-400:#D6A85C;
 
   --sand-50:#F3EFE4;
   --sand-100:#EAE3D2;
-  --sand-200:#DED5C0;
 
   --ink:#1F2A28;
   --ink-soft:#5A6663;
 
   --line:#DDD5C0;
+
   --white:#FFFDF8;
 
-  --success-bg:#E5F0E4;
-  --error-bg:#FBEAEA;
-  --error:#7A231A;
 }
+
+
+/* ============================================================
+   BASE
+   ============================================================ */
 
 *{
   box-sizing:border-box;
 }
 
-html{
-  -webkit-text-size-adjust:100%;
-}
-
 body{
+
   margin:0;
+
   background:var(--sand-50);
+
   color:var(--ink);
+
   font-family:'Inter',sans-serif;
+
   min-height:100vh;
+
   padding:20px 14px 50px;
+
 }
 
 button,
-input{
+a{
   -webkit-tap-highlight-color:transparent;
 }
 
-button{
-  font-family:'Inter',sans-serif;
-}
-
 .wrap{
+
+  width:100%;
+
   max-width:480px;
+
   margin:0 auto;
+
 }
 
 
@@ -71,518 +108,735 @@ button{
    ============================================================ */
 
 .top{
+
   text-align:center;
+
   margin-bottom:22px;
+
 }
 
 .hijri-date{
+
   font-size:12px;
+
   letter-spacing:.06em;
+
   text-transform:uppercase;
+
   color:var(--ink-soft);
+
   font-weight:500;
+
   margin-bottom:5px;
+
 }
 
 .title{
+
   font-family:'Amiri',serif;
-  font-size:27px;
+
+  font-size:28px;
+
   color:var(--teal-900);
+
   font-weight:700;
+
   margin:0;
+
 }
 
 .subtitle{
+
   font-size:12px;
+
   color:var(--ink-soft);
+
   margin-top:2px;
+
 }
 
 
 /* ============================================================
-   BANNERS
+   TODAY CARD
    ============================================================ */
 
-.setup-banner{
-  background:#FDEEDC;
-  border:1px solid var(--gold-600);
-  border-radius:14px;
-  padding:14px 16px;
-  font-size:13px;
-  color:var(--teal-900);
-  margin-bottom:18px;
-  line-height:1.5;
-}
+.card{
 
-.error-banner{
-  background:var(--error-bg);
-  border:1px solid #C0392B;
-  border-radius:14px;
-  padding:13px 15px;
-  font-size:13px;
-  color:var(--error);
-  margin-bottom:18px;
-  line-height:1.5;
+  background:var(--white);
+
+  border:1px solid var(--line);
+
+  border-radius:20px;
+
+  padding:22px 18px;
+
+  margin-bottom:20px;
+
 }
 
 
 /* ============================================================
-   TODAY'S JUZ CARD
+   JUZ
    ============================================================ */
 
 .juz-card{
-  background:var(--white);
-  border:1px solid var(--line);
-  border-radius:20px;
-  padding:27px 20px 22px;
+
   text-align:center;
-  margin-bottom:20px;
-  box-shadow:0 2px 8px rgba(31,42,40,.03);
+
 }
 
 .juz-label{
+
   font-size:11px;
+
   letter-spacing:.1em;
+
   text-transform:uppercase;
+
   color:var(--ink-soft);
-  margin-bottom:8px;
+
   font-weight:600;
+
+  margin-bottom:8px;
+
 }
 
-.juz-star{
+.juz-circle{
+
   width:100px;
+
   height:100px;
+
   margin:0 auto 10px;
+
   position:relative;
+
   display:flex;
+
   align-items:center;
+
   justify-content:center;
+
 }
 
 .juz-number{
-  font-family:'Amiri',serif;
-  font-weight:700;
-  font-size:43px;
-  color:var(--teal-900);
+
   position:relative;
+
   z-index:2;
-  line-height:1;
+
+  font-family:'Amiri',serif;
+
+  font-size:45px;
+
+  font-weight:700;
+
+  color:var(--teal-900);
+
 }
 
-.juz-sub{
+.juz-name{
+
   font-size:14px;
+
   color:var(--ink-soft);
-  margin-bottom:10px;
+
+  margin-bottom:8px;
+
 }
 
 .quran-link{
+
   display:inline-block;
+
   color:var(--teal-700);
+
   font-size:12px;
+
   font-weight:600;
+
   text-decoration:none;
-  margin-bottom:19px;
+
+  margin-bottom:18px;
+
 }
 
 .quran-link:hover{
+
   text-decoration:underline;
+
 }
 
+
+/* ============================================================
+   CHECK IN BUTTON
+   ============================================================ */
+
 .checkin-btn{
+
   width:100%;
-  padding:15px 18px;
+
   min-height:52px;
+
+  border:0;
+
   border-radius:14px;
-  border:none;
-  font-size:15px;
-  font-weight:600;
-  cursor:pointer;
+
   background:var(--teal-700);
-  color:var(--white);
-  transition:transform .12s ease,background .15s ease;
+
+  color:white;
+
+  font-size:15px;
+
+  font-weight:600;
+
+  cursor:pointer;
+
 }
 
 .checkin-btn:active{
+
   transform:scale(.98);
+
 }
 
 .checkin-btn.done{
-  background:var(--success-bg);
+
+  background:#E6EFE5;
+
   color:var(--teal-900);
+
   border:1.5px solid var(--gold-600);
+
 }
 
-.checkin-btn:disabled{
-  opacity:.55;
-  cursor:default;
+.checkin-btn.busy{
+
+  opacity:.65;
+
+  pointer-events:none;
+
 }
 
 
 /* ============================================================
-   NAME SELECTOR
+   UNDO
+   ============================================================ */
+
+.undo-btn{
+
+  display:block;
+
+  margin:9px auto 0;
+
+  background:none;
+
+  border:0;
+
+  color:var(--ink-soft);
+
+  text-decoration:underline;
+
+  font-size:12px;
+
+  cursor:pointer;
+
+  padding:4px 8px;
+
+}
+
+
+/* ============================================================
+   NAME
    ============================================================ */
 
 .who-label{
+
   font-size:12px;
+
   color:var(--ink-soft);
+
   margin:15px 0 9px;
+
 }
 
 .who-grid{
+
   display:grid;
+
   grid-template-columns:repeat(2,1fr);
+
   gap:8px;
+
 }
 
 .who-btn{
-  min-height:44px;
-  padding:10px 6px;
-  border-radius:12px;
-  border:1.5px solid var(--line);
-  background:var(--sand-50);
-  color:var(--ink);
-  font-size:13px;
-  font-weight:500;
-  cursor:pointer;
-}
 
-.who-btn:active{
-  transform:scale(.97);
+  min-height:44px;
+
+  border:1.5px solid var(--line);
+
+  border-radius:12px;
+
+  background:var(--sand-50);
+
+  color:var(--ink);
+
+  font-size:13px;
+
+  font-weight:500;
+
+  cursor:pointer;
+
 }
 
 .you-line{
+
   font-size:12px;
+
   color:var(--ink-soft);
+
   margin-top:11px;
+
 }
 
 .you-line strong{
+
   color:var(--teal-900);
+
 }
 
 .text-button{
+
+  border:0;
+
   background:none;
-  border:none;
+
   color:var(--teal-700);
-  font-size:12px;
+
   text-decoration:underline;
+
+  font-size:12px;
+
   cursor:pointer;
+
   padding:0;
+
 }
 
 
 /* ============================================================
-   SECTION TITLES
+   SECTION TITLE
    ============================================================ */
 
 .section-title{
+
   font-size:12px;
+
   letter-spacing:.07em;
+
   text-transform:uppercase;
+
   color:var(--ink-soft);
+
   font-weight:600;
+
   margin:0 0 10px 2px;
+
 }
 
 
 /* ============================================================
-   TODAY'S FAMILY STATUS
+   TODAY FAMILY
    ============================================================ */
 
-.family-card{
-  background:var(--white);
-  border:1px solid var(--line);
-  border-radius:18px;
-  padding:17px;
-  margin-bottom:20px;
-}
+.family-summary{
 
-.today-summary{
   display:flex;
+
   align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  margin-bottom:14px;
+
+  gap:14px;
+
+  margin-bottom:15px;
+
 }
 
-.today-count{
+.family-count{
+
+  min-width:62px;
+
+}
+
+.family-count-number{
+
   font-family:'Amiri',serif;
-  font-size:25px;
-  font-weight:700;
-  color:var(--teal-900);
+
+  font-size:28px;
+
   line-height:1;
+
+  color:var(--teal-900);
+
+  font-weight:700;
+
 }
 
-.today-count-label{
-  font-size:11px;
+.family-count-label{
+
+  font-size:10px;
+
   color:var(--ink-soft);
+
   margin-top:4px;
+
 }
 
-.today-bar{
-  height:7px;
-  background:var(--sand-100);
-  border-radius:999px;
-  overflow:hidden;
+.family-bar{
+
   flex:1;
-  min-width:100px;
+
+  height:8px;
+
+  background:var(--sand-100);
+
+  border-radius:999px;
+
+  overflow:hidden;
+
 }
 
-.today-bar-fill{
+.family-bar-fill{
+
   height:100%;
+
   background:var(--gold-600);
+
   border-radius:999px;
+
   transition:width .3s ease;
+
 }
 
 .family-grid{
+
   display:flex;
+
   flex-wrap:wrap;
+
   gap:8px;
+
 }
 
 .chip{
+
   display:flex;
+
   align-items:center;
+
   gap:7px;
+
   padding:7px 11px 7px 7px;
+
   border-radius:999px;
+
   border:1.5px solid var(--line);
+
   background:var(--sand-50);
+
   font-size:12px;
-  font-weight:500;
+
   color:var(--ink-soft);
+
 }
 
 .chip.read{
-  border-color:var(--gold-600);
+
   background:var(--sand-100);
+
+  border-color:var(--gold-600);
+
   color:var(--teal-900);
+
 }
 
-.chip .avatar{
+.avatar{
+
   width:25px;
+
   height:25px;
+
   border-radius:50%;
+
   background:var(--line);
+
+  color:white;
+
   display:flex;
+
   align-items:center;
+
   justify-content:center;
+
   font-size:10px;
+
   font-weight:600;
-  color:var(--white);
-  flex-shrink:0;
+
 }
 
 .chip.read .avatar{
+
   background:var(--gold-600);
+
 }
 
 
 /* ============================================================
-   FAMILY MONTH PROGRESS
+   MONTH PROGRESS
    ============================================================ */
 
-.progress-card{
-  background:var(--white);
-  border:1px solid var(--line);
-  border-radius:18px;
-  padding:18px;
-  margin-bottom:20px;
-}
-
 .progress-header{
+
   display:flex;
+
   justify-content:space-between;
-  align-items:flex-end;
-  margin-bottom:14px;
+
+  align-items:end;
+
+  margin-bottom:12px;
+
 }
 
-.progress-big{
+.progress-number{
+
   font-family:'Amiri',serif;
-  font-size:27px;
-  font-weight:700;
-  color:var(--teal-900);
+
+  font-size:29px;
+
   line-height:1;
+
+  font-weight:700;
+
+  color:var(--teal-900);
+
 }
 
-.progress-small{
-  font-size:11px;
+.progress-label{
+
+  font-size:10px;
+
   color:var(--ink-soft);
+
   margin-top:4px;
+
 }
 
 .progress-percent{
-  font-size:13px;
-  font-weight:600;
+
   color:var(--gold-600);
+
+  font-size:13px;
+
+  font-weight:600;
+
 }
 
 .progress-bar{
+
   height:9px;
+
   background:var(--sand-100);
+
   border-radius:999px;
+
   overflow:hidden;
+
   margin-bottom:17px;
+
 }
 
-.progress-bar-fill{
+.progress-fill{
+
   height:100%;
+
   background:var(--gold-600);
+
   border-radius:999px;
+
   transition:width .3s ease;
+
 }
 
 
 /* ============================================================
-   DAILY FAMILY GRID
+   DAILY GRID
    ============================================================ */
 
-.day-progress-list{
+.day-list{
+
   display:flex;
+
   flex-direction:column;
-  gap:5px;
+
+  gap:4px;
+
 }
 
 .day-row{
+
   display:flex;
+
   align-items:center;
-  min-height:30px;
-  gap:8px;
-  padding:4px;
+
+  min-height:28px;
+
+  gap:7px;
+
   border-radius:8px;
+
+  padding:4px;
+
 }
 
 .day-row.today{
+
   background:#F7F1E3;
+
 }
 
 .day-number{
-  width:28px;
-  flex-shrink:0;
-  font-size:11px;
-  color:var(--ink-soft);
-  font-weight:600;
+
+  width:27px;
+
   text-align:center;
+
+  font-size:10px;
+
+  font-weight:600;
+
+  color:var(--ink-soft);
+
 }
 
 .day-row.today .day-number{
+
   color:var(--teal-900);
+
 }
 
-.member-dots{
+.day-dots{
+
   display:flex;
+
   gap:4px;
+
   flex:1;
+
 }
 
-.member-dot{
+.person-dot{
+
   width:17px;
+
   height:17px;
+
   border-radius:5px;
+
   background:var(--sand-100);
+
   border:1px solid var(--line);
+
 }
 
-.member-dot.read{
+.person-dot.read{
+
   background:var(--gold-600);
+
   border-color:var(--gold-600);
+
 }
 
 .day-total{
+
   width:30px;
-  flex-shrink:0;
+
   text-align:right;
+
   font-size:10px;
+
   color:var(--ink-soft);
-}
 
-.legend{
-  display:flex;
-  flex-wrap:wrap;
-  gap:12px;
-  margin-top:14px;
-  padding-top:12px;
-  border-top:1px solid var(--line);
-  font-size:10px;
-  color:var(--ink-soft);
-}
-
-.legend-item{
-  display:flex;
-  align-items:center;
-  gap:5px;
-}
-
-.legend-dot{
-  width:12px;
-  height:12px;
-  border-radius:4px;
-  background:var(--sand-100);
-  border:1px solid var(--line);
-}
-
-.legend-dot.done{
-  background:var(--gold-600);
-  border-color:var(--gold-600);
-}
-
-.legend-dot.today{
-  outline:2px solid var(--teal-700);
-  outline-offset:1px;
 }
 
 
 /* ============================================================
-   INDIVIDUAL PROGRESS
+   INDIVIDUAL
    ============================================================ */
 
-.member-progress-card{
-  background:var(--white);
-  border:1px solid var(--line);
-  border-radius:18px;
-  padding:17px;
-  margin-bottom:20px;
-}
+.member-list{
 
-.member-progress{
   display:flex;
+
   flex-direction:column;
+
   gap:11px;
+
 }
 
 .member-row{
+
   display:grid;
-  grid-template-columns:90px 1fr 38px;
-  align-items:center;
+
+  grid-template-columns:85px 1fr 36px;
+
   gap:8px;
+
+  align-items:center;
+
 }
 
 .member-name{
+
   font-size:11px;
-  color:var(--ink);
+
   white-space:nowrap;
+
   overflow:hidden;
+
   text-overflow:ellipsis;
+
 }
 
 .member-bar{
+
   height:7px;
+
   background:var(--sand-100);
+
   border-radius:999px;
+
   overflow:hidden;
+
 }
 
-.member-bar-fill{
+.member-fill{
+
   height:100%;
+
   background:var(--gold-600);
+
   border-radius:999px;
+
 }
 
 .member-total{
+
   font-size:10px;
+
   color:var(--ink-soft);
+
   text-align:right;
+
 }
 
 
@@ -590,38 +844,36 @@ button{
    FOOTER
    ============================================================ */
 
-.footer-note{
+.footer{
+
   text-align:center;
-  font-size:11px;
+
   color:var(--ink-soft);
-  margin-top:20px;
+
+  font-size:11px;
+
   line-height:1.6;
+
+  margin-top:20px;
+
 }
 
-.footer-actions{
-  text-align:center;
-  margin-top:12px;
-}
+.lock-link{
 
-.footer-actions button{
+  margin-top:10px;
+
   background:none;
-  border:none;
-  color:var(--ink-soft);
-  font-size:11px;
+
+  border:0;
+
   text-decoration:underline;
-  cursor:pointer;
-}
 
-
-/* ============================================================
-   LOADING
-   ============================================================ */
-
-.loading{
-  text-align:center;
-  padding:70px 0;
   color:var(--ink-soft);
-  font-size:14px;
+
+  font-size:11px;
+
+  cursor:pointer;
+
 }
 
 
@@ -630,98 +882,126 @@ button{
    ============================================================ */
 
 .lock-screen{
+
   max-width:340px;
+
   margin:70px auto;
+
   text-align:center;
+
 }
 
 .lock-icon{
-  font-size:34px;
-  margin-bottom:10px;
-}
 
-.lock-screen p{
-  font-size:14px;
-  color:var(--ink-soft);
-  margin:0 0 18px;
-  line-height:1.5;
-}
+  font-size:32px;
 
-.lock-screen .title{
-  margin-bottom:6px;
+  margin-bottom:8px;
+
 }
 
 .lock-screen input{
-  width:100%;
-  padding:15px;
-  border-radius:12px;
-  border:1px solid var(--line);
-  font-family:'Inter',sans-serif;
-  font-size:18px;
-  text-align:center;
-  letter-spacing:.18em;
-  background:var(--white);
-  color:var(--ink);
-  margin-bottom:10px;
-}
 
-.lock-screen input:focus{
-  outline:2px solid var(--gold-400);
-  outline-offset:1px;
+  width:100%;
+
+  padding:15px;
+
+  border-radius:12px;
+
+  border:1px solid var(--line);
+
+  background:var(--white);
+
+  font-size:18px;
+
+  text-align:center;
+
+  letter-spacing:.18em;
+
+  margin-bottom:10px;
+
 }
 
 .lock-screen button{
-  width:100%;
-  min-height:50px;
-  padding:14px;
-  border-radius:12px;
-  border:none;
-  background:var(--teal-700);
-  color:var(--white);
-  font-weight:600;
-  font-size:15px;
-  cursor:pointer;
-}
 
-.lock-screen button:disabled{
-  opacity:.6;
+  width:100%;
+
+  min-height:50px;
+
+  border:0;
+
+  border-radius:12px;
+
+  background:var(--teal-700);
+
+  color:white;
+
+  font-size:15px;
+
+  font-weight:600;
+
 }
 
 .lock-error{
-  font-size:13px;
-  color:#C0392B;
+
   margin-top:10px;
+
+  color:#C0392B;
+
+  font-size:12px;
+
+}
+
+
+/* ============================================================
+   LOADING
+   ============================================================ */
+
+.loading{
+
+  text-align:center;
+
+  padding:70px 0;
+
+  color:var(--ink-soft);
+
+  font-size:14px;
+
 }
 
 
 @media(max-width:360px){
 
   body{
+
     padding-left:10px;
     padding-right:10px;
+
   }
 
-  .member-row{
-    grid-template-columns:75px 1fr 34px;
-  }
+  .person-dot{
 
-  .member-dot{
     width:15px;
     height:15px;
+
   }
 
 }
 
 </style>
+
 </head>
 
 
 <body>
 
-<div class="wrap" id="app">
+
+<div
+  id="app"
+  class="wrap"
+>
 
   <div class="loading">
-    Loading khatma tracker…
+    Loading Family Khatma…
   </div>
 
 </div>
@@ -730,7 +1010,12 @@ button{
 <script>
 
 
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwLgTaXumnrJtqB9qi7E-SZixaJ1CM3DTKt6uzDRb-IOaglESMmslkXYqrhe2FKBDU/exec";
+/* ============================================================
+   ONLY THING TO CHANGE IN THIS FILE
+   ============================================================ */
+
+const SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycbxCz8jJ92e8OdBoxXZjSqAnfyLbnMhIIXZ3E0YPCRy5Et0qWCGBDJhZNhNWvugMfq8s/exec";
 
 
 /* ============================================================
@@ -738,6 +1023,7 @@ const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwLgTaXumnrJtqB9qi7E
    ============================================================ */
 
 const FAMILY = [
+
   "Mama",
   "Baba",
   "Menna",
@@ -746,14 +1032,15 @@ const FAMILY = [
   "Ibrahim",
   "Ismail",
   "Mousa"
+
 ];
 
 
 /* ============================================================
-   HIJRI MONTH NAMES
+   HIJRI MONTHS
    ============================================================ */
 
-const HIJRI_MONTH_NAMES = [
+const HIJRI_MONTHS = [
 
   "Muharram",
   "Safar",
@@ -772,10 +1059,33 @@ const HIJRI_MONTH_NAMES = [
 
 
 /* ============================================================
+   STATE
+   ============================================================ */
+
+let state = {
+
+  name:null,
+
+  token:null,
+
+  hijri:null,
+
+  monthKey:"",
+
+  rows:[],
+
+  busy:false,
+
+  error:null
+
+};
+
+
+/* ============================================================
    HIJRI DATE
    ============================================================ */
 
-function getHijriInfo(date){
+function getHijri(date){
 
   const parts =
     new Intl.DateTimeFormat(
@@ -791,20 +1101,18 @@ function getHijriInfo(date){
   const map = {};
 
 
-  parts.forEach(p => {
-
-    map[p.type] = p.value;
-
-  });
+  parts.forEach(
+    p => map[p.type] = p.value
+  );
 
 
   return {
 
-    day:parseInt(map.day,10),
+    day:Number(map.day),
 
-    month:parseInt(map.month,10),
+    month:Number(map.month),
 
-    year:parseInt(map.year,10)
+    year:Number(map.year)
 
   };
 
@@ -812,82 +1120,57 @@ function getHijriInfo(date){
 
 
 /* ============================================================
-   INITIALS
+   STORAGE
    ============================================================ */
 
-function initials(name){
-
-  return name
-    .trim()
-    .split(/\s+/)
-    .slice(0,2)
-    .map(w => w[0].toUpperCase())
-    .join("");
-
-}
-
-
-/* ============================================================
-   CONFIGURED
-   ============================================================ */
-
-function configured(){
-
-  return (
-    SCRIPT_URL &&
-    SCRIPT_URL.indexOf("PASTE_YOUR") === -1
-  );
-
-}
-
-
-/* ============================================================
-   SESSION
-   ============================================================ */
-
-function getSessionToken(){
+function loadStorage(){
 
   try{
 
-    return localStorage.getItem(
-      "khatma_session"
-    );
+    state.token =
+      localStorage.getItem(
+        "khatma_session"
+      );
 
-  }catch(e){
-
-    return null;
-
-  }
-
-}
-
-
-function saveSessionToken(token){
-
-  try{
-
-    localStorage.setItem(
-      "khatma_session",
-      token
-    );
+    state.name =
+      localStorage.getItem(
+        "khatma_name"
+      );
 
   }catch(e){}
 
 }
 
 
-function clearSession(){
+function saveName(name){
+
+  state.name = name;
+
+  try{
+
+    localStorage.setItem(
+      "khatma_name",
+      name
+    );
+
+  }catch(e){}
+
+  render();
+
+}
+
+
+function logout(){
+
+  state.token = null;
+
+  state.name = null;
 
   try{
 
     localStorage.removeItem(
       "khatma_session"
     );
-
-  }catch(e){}
-
-
-  try{
 
     localStorage.removeItem(
       "khatma_name"
@@ -895,8 +1178,7 @@ function clearSession(){
 
   }catch(e){}
 
-
-  state.name = null;
+  showLogin();
 
 }
 
@@ -905,129 +1187,129 @@ function clearSession(){
    JSONP
    ============================================================ */
 
-let jsonpCounter = 0;
+let callbackCounter = 0;
 
 
-function jsonp(url){
+function request(url){
 
-  return new Promise((resolve,reject) => {
+  return new Promise(
+    (resolve,reject) => {
 
-    const cbName =
-      "khatma_cb_" +
-      (jsonpCounter++);
-
-
-    const script =
-      document.createElement("script");
+      const callbackName =
+        "khatma_" +
+        callbackCounter++;
 
 
-    let finished = false;
-
-
-    const timeout =
-      setTimeout(() => {
-
-        if(finished) return;
-
-        finished = true;
-
-        cleanup();
-
-        reject(
-          new Error("Request timed out")
+      const script =
+        document.createElement(
+          "script"
         );
 
-      },15000);
+
+      let finished = false;
 
 
-    function cleanup(){
+      const timer =
+        setTimeout(
+          () => {
 
-      clearTimeout(timeout);
+            if(finished) return;
 
-      try{
+            finished = true;
 
-        delete window[cbName];
+            cleanup();
 
-      }catch(e){
+            reject(
+              new Error(
+                "Request timed out"
+              )
+            );
 
-        window[cbName] = undefined;
+          },
+          15000
+        );
+
+
+      function cleanup(){
+
+        clearTimeout(timer);
+
+        try{
+
+          delete window[
+            callbackName
+          ];
+
+        }catch(e){}
+
+        script.remove();
 
       }
 
-      script.remove();
 
-    }
+      window[callbackName] =
+        function(data){
 
+          if(finished) return;
 
-    window[cbName] = (data) => {
+          finished = true;
 
-      if(finished) return;
+          cleanup();
 
-      finished = true;
+          resolve(data);
 
-      cleanup();
-
-      resolve(data);
-
-    };
+        };
 
 
-    script.onerror = () => {
+      script.onerror =
+        function(){
 
-      if(finished) return;
+          if(finished) return;
 
-      finished = true;
+          finished = true;
 
-      cleanup();
+          cleanup();
 
-      reject(
-        new Error("Request failed")
+          reject(
+            new Error(
+              "Request failed"
+            )
+          );
+
+        };
+
+
+      script.src =
+        url +
+        (url.includes("?")
+          ? "&"
+          : "?") +
+        "callback=" +
+        encodeURIComponent(
+          callbackName
+        );
+
+
+      document.body.appendChild(
+        script
       );
 
-    };
-
-
-    script.src =
-      url +
-      (url.includes("?") ? "&" : "?") +
-      "callback=" +
-      encodeURIComponent(cbName);
-
-
-    document.body.appendChild(script);
-
-  });
+    }
+  );
 
 }
 
 
 /* ============================================================
-   STATE
+   LOGIN SCREEN
    ============================================================ */
 
-let state = {
-
-  name:null,
-
-  monthKey:"",
-
-  dayRows:[],
-
-  hijri:null,
-
-  error:null
-
-};
-
-
-/* ============================================================
-   LOCK SCREEN
-   ============================================================ */
-
-function showLockScreen(errorMsg){
+function showLogin(message){
 
   const app =
-    document.getElementById("app");
+    document.getElementById(
+      "app"
+    );
 
 
   app.innerHTML = `
@@ -1043,27 +1325,29 @@ function showLockScreen(errorMsg){
       </p>
 
       <p>
-        Enter the family PIN to open the tracker.
+        Enter the family PIN to open
+        the tracker.
       </p>
 
       <input
+        id="pin"
         type="password"
-        id="pinInput"
-        maxlength="12"
-        placeholder="PIN"
         inputmode="numeric"
         autocomplete="current-password"
+        placeholder="PIN"
       >
 
-      <button onclick="submitPin()">
+      <button
+        onclick="login()"
+      >
         Unlock
       </button>
 
       ${
-        errorMsg
+        message
         ? `
           <div class="lock-error">
-            ${escapeHtml(errorMsg)}
+            ${message}
           </div>
         `
         : ""
@@ -1076,29 +1360,27 @@ function showLockScreen(errorMsg){
 
   const input =
     document.getElementById(
-      "pinInput"
+      "pin"
     );
 
 
-  if(input){
-
-    input.focus();
+  input.focus();
 
 
-    input.addEventListener(
-      "keydown",
-      e => {
+  input.addEventListener(
+    "keydown",
+    function(e){
 
-        if(e.key === "Enter"){
+      if(
+        e.key === "Enter"
+      ){
 
-          submitPin();
-
-        }
+        login();
 
       }
-    );
 
-  }
+    }
+  );
 
 }
 
@@ -1107,15 +1389,12 @@ function showLockScreen(errorMsg){
    LOGIN
    ============================================================ */
 
-function submitPin(){
+async function login(){
 
   const input =
     document.getElementById(
-      "pinInput"
+      "pin"
     );
-
-
-  if(!input) return;
 
 
   const pin =
@@ -1124,8 +1403,8 @@ function submitPin(){
 
   if(!pin){
 
-    showLockScreen(
-      "Please enter the family PIN."
+    showLogin(
+      "Please enter the PIN."
     );
 
     return;
@@ -1133,198 +1412,27 @@ function submitPin(){
   }
 
 
-  const button =
-    document.querySelector(
-      ".lock-screen button"
-    );
+  try{
 
+    const result =
+      await request(
 
-  if(button){
+        SCRIPT_URL +
+        "?action=login" +
+        "&pin=" +
+        encodeURIComponent(pin)
 
-    button.disabled = true;
-
-    button.textContent =
-      "Checking…";
-
-  }
-
-
-  jsonp(
-
-    `${SCRIPT_URL}` +
-    `?action=login` +
-    `&pin=${encodeURIComponent(pin)}`
-
-  )
-
-  .then(result => {
-
-    if(
-      result &&
-      result.success &&
-      result.token
-    ){
-
-      saveSessionToken(
-        result.token
       );
 
 
-      loadState();
+    if(
+      !result ||
+      !result.success ||
+      !result.token
+    ){
 
-    }else{
-
-      showLockScreen(
+      showLogin(
         "That's not the right PIN."
-      );
-
-    }
-
-  })
-
-  .catch(() => {
-
-    showLockScreen(
-      "Could not connect to the tracker. Please try again."
-    );
-
-  });
-
-}
-
-
-/* ============================================================
-   API: READ
-   ============================================================ */
-
-async function apiRead(monthKey){
-
-  const token =
-    getSessionToken();
-
-
-  if(!token){
-
-    showLockScreen();
-
-    return null;
-
-  }
-
-
-  return await jsonp(
-
-    `${SCRIPT_URL}` +
-    `?action=read` +
-    `&monthKey=${encodeURIComponent(monthKey)}` +
-    `&token=${encodeURIComponent(token)}`
-
-  );
-
-}
-
-
-/* ============================================================
-   API: CHECK-IN
-   ============================================================ */
-
-async function apiCheckin(
-  monthKey,
-  day,
-  name
-){
-
-  const token =
-    getSessionToken();
-
-
-  if(!token){
-
-    showLockScreen();
-
-    return null;
-
-  }
-
-
-  return await jsonp(
-
-    `${SCRIPT_URL}` +
-    `?action=checkin` +
-    `&monthKey=${encodeURIComponent(monthKey)}` +
-    `&day=${encodeURIComponent(day)}` +
-    `&name=${encodeURIComponent(name)}` +
-    `&token=${encodeURIComponent(token)}`
-
-  );
-
-}
-
-
-/* ============================================================
-   LOAD STATE
-   ============================================================ */
-
-async function loadState(){
-
-  const now =
-    new Date();
-
-
-  state.hijri =
-    getHijriInfo(now);
-
-
-  state.monthKey =
-    `${state.hijri.year}-${String(
-      state.hijri.month
-    ).padStart(2,"0")}`;
-
-
-  try{
-
-    state.name =
-      localStorage.getItem(
-        "khatma_name"
-      );
-
-  }catch(e){
-
-    state.name = null;
-
-  }
-
-
-  const token =
-    getSessionToken();
-
-
-  if(!token){
-
-    showLockScreen();
-
-    return;
-
-  }
-
-
-  try{
-
-    const rows =
-      await apiRead(
-        state.monthKey
-      );
-
-
-    if(
-      rows &&
-      rows.error === "unauthorized"
-    ){
-
-      clearSession();
-
-      showLockScreen(
-        "Your session expired. Please enter the family PIN again."
       );
 
       return;
@@ -1332,22 +1440,109 @@ async function loadState(){
     }
 
 
+    state.token =
+      result.token;
+
+
+    try{
+
+      localStorage.setItem(
+        "khatma_session",
+        result.token
+      );
+
+    }catch(e){}
+
+
+    load();
+
+  }catch(e){
+
+    showLogin(
+      "Could not connect. Please try again."
+    );
+
+  }
+
+}
+
+
+/* ============================================================
+   LOAD DATA
+   ============================================================ */
+
+async function load(){
+
+  state.hijri =
+    getHijri(
+      new Date()
+    );
+
+
+  state.monthKey =
+    state.hijri.year +
+    "-" +
+    String(
+      state.hijri.month
+    ).padStart(2,"0");
+
+
+  if(!state.token){
+
+    showLogin();
+
+    return;
+
+  }
+
+
+  try{
+
+    const result =
+      await request(
+
+        SCRIPT_URL +
+        "?action=read" +
+        "&monthKey=" +
+        encodeURIComponent(
+          state.monthKey
+        ) +
+        "&token=" +
+        encodeURIComponent(
+          state.token
+        )
+
+      );
+
+
     if(
-      rows &&
-      rows.error
+      result &&
+      result.error ===
+      "unauthorized"
+    ){
+
+      logout();
+
+      return;
+
+    }
+
+
+    if(
+      result &&
+      result.error
     ){
 
       state.error =
-        rows.message ||
-        "Something went wrong.";
+        "Could not load the tracker.";
 
-      state.dayRows = [];
+      state.rows = [];
 
     }else{
 
-      state.dayRows =
-        Array.isArray(rows)
-        ? rows
+      state.rows =
+        Array.isArray(result)
+        ? result
         : [];
 
       state.error = null;
@@ -1358,9 +1553,7 @@ async function loadState(){
   }catch(e){
 
     state.error =
-      "Could not reach the Google Sheet. Check your Apps Script deployment.";
-
-    state.dayRows = [];
+      "Could not connect to the Google Sheet.";
 
   }
 
@@ -1371,31 +1564,255 @@ async function loadState(){
 
 
 /* ============================================================
-   SAVE NAME
+   DAYS IN HIJRI MONTH
    ============================================================ */
 
-function saveName(name){
+function daysInMonth(){
 
-  if(!FAMILY.includes(name)){
+  const current =
+    state.hijri;
+
+
+  const date =
+    new Date();
+
+
+  /*
+   Check whether the Gregorian date corresponding
+   to Hijri day 30 still belongs to this month.
+   */
+
+  date.setDate(
+    date.getDate() +
+    (30 - current.day)
+  );
+
+
+  const future =
+    getHijri(date);
+
+
+  if(
+    future.month === current.month &&
+    future.year === current.year
+  ){
+
+    return 30;
+
+  }
+
+
+  return 29;
+
+}
+
+
+/* ============================================================
+   CHECK WHETHER PERSON READ
+   ============================================================ */
+
+function hasRead(
+  day,
+  name
+){
+
+  return state.rows.some(
+    row =>
+      Number(row.day) === Number(day) &&
+      row.name === name
+  );
+
+}
+
+
+/* ============================================================
+   TODAY'S NAMES
+   ============================================================ */
+
+function todayReaders(){
+
+  return FAMILY.filter(
+    name =>
+      hasRead(
+        state.hijri.day,
+        name
+      )
+  );
+
+}
+
+
+/* ============================================================
+   UPDATE LOCAL STATE
+   ============================================================ */
+
+function addLocalCheckin(
+  day,
+  name
+){
+
+  if(
+    hasRead(
+      day,
+      name
+    )
+  ){
 
     return;
 
   }
 
 
-  state.name =
-    name;
+  state.rows.push({
+
+    day:Number(day),
+
+    name:name
+
+  });
+
+}
+
+
+function removeLocalCheckin(
+  day,
+  name
+){
+
+  state.rows =
+    state.rows.filter(
+      row =>
+        !(
+          Number(row.day) ===
+          Number(day) &&
+          row.name === name
+        )
+    );
+
+}
+
+
+/* ============================================================
+   CHECK IN
+   ============================================================ */
+
+async function checkin(){
+
+  if(
+    !state.name ||
+    state.busy
+  ){
+
+    return;
+
+  }
+
+
+  const day =
+    state.hijri.day;
+
+
+  /*
+   Optimistic UI update.
+   */
+
+  addLocalCheckin(
+    day,
+    state.name
+  );
+
+
+  state.busy = true;
+
+  render();
 
 
   try{
 
-    localStorage.setItem(
-      "khatma_name",
-      name
+    const result =
+      await request(
+
+        SCRIPT_URL +
+        "?action=checkin" +
+        "&monthKey=" +
+        encodeURIComponent(
+          state.monthKey
+        ) +
+        "&day=" +
+        day +
+        "&name=" +
+        encodeURIComponent(
+          state.name
+        ) +
+        "&token=" +
+        encodeURIComponent(
+          state.token
+        )
+
+      );
+
+
+    if(
+      result &&
+      result.error ===
+      "unauthorized"
+    ){
+
+      logout();
+
+      return;
+
+    }
+
+
+    if(
+      result &&
+      result.error
+    ){
+
+      /*
+       Server rejected it.
+       Roll back optimistic update.
+       */
+
+      removeLocalCheckin(
+        day,
+        state.name
+      );
+
+      state.error =
+        "Could not save your check-in.";
+
+    }else{
+
+      /*
+       Server is source of truth.
+       */
+
+      state.rows =
+        Array.isArray(result)
+        ? result
+        : state.rows;
+
+      state.error = null;
+
+    }
+
+
+  }catch(e){
+
+    removeLocalCheckin(
+      day,
+      state.name
     );
 
-  }catch(e){}
+    state.error =
+      "Could not save your check-in.";
 
+  }
+
+
+  state.busy = false;
 
   render();
 
@@ -1403,10 +1820,135 @@ function saveName(name){
 
 
 /* ============================================================
-   CHANGE NAME
+   UNDO
    ============================================================ */
 
-function promptRename(){
+async function undo(){
+
+  if(
+    !state.name ||
+    state.busy
+  ){
+
+    return;
+
+  }
+
+
+  const day =
+    state.hijri.day;
+
+
+  /*
+   Optimistic update.
+   */
+
+  removeLocalCheckin(
+    day,
+    state.name
+  );
+
+
+  state.busy = true;
+
+  render();
+
+
+  try{
+
+    const result =
+      await request(
+
+        SCRIPT_URL +
+        "?action=undo" +
+        "&monthKey=" +
+        encodeURIComponent(
+          state.monthKey
+        ) +
+        "&day=" +
+        day +
+        "&name=" +
+        encodeURIComponent(
+          state.name
+        ) +
+        "&token=" +
+        encodeURIComponent(
+          state.token
+        )
+
+      );
+
+
+    if(
+      result &&
+      result.error ===
+      "unauthorized"
+    ){
+
+      logout();
+
+      return;
+
+    }
+
+
+    if(
+      result &&
+      result.error
+    ){
+
+      /*
+       Roll back.
+       */
+
+      addLocalCheckin(
+        day,
+        state.name
+      );
+
+      state.error =
+        "Could not undo the check-in.";
+
+    }else{
+
+      state.rows =
+        Array.isArray(result)
+        ? result
+        : state.rows;
+
+      state.error = null;
+
+    }
+
+
+  }catch(e){
+
+    addLocalCheckin(
+      day,
+      state.name
+    );
+
+    state.error =
+      "Could not undo the check-in.";
+
+  }
+
+
+  state.busy = false;
+
+  render();
+
+}
+
+
+/* ============================================================
+   RENAME
+   ============================================================ */
+
+function changeName(){
+
+  state.name = null;
+
 
   try{
 
@@ -1417,240 +1959,45 @@ function promptRename(){
   }catch(e){}
 
 
-  state.name = null;
-
   render();
 
 }
 
 
 /* ============================================================
-   LOG OUT
+   INITIALS
    ============================================================ */
 
-function logout(){
+function initials(name){
 
-  clearSession();
-
-  showLockScreen(
-    "You have been logged out."
-  );
-
-}
-
-
-/* ============================================================
-   CHECK-IN
-   ============================================================ */
-
-async function toggleCheckin(){
-
-  if(
-    !state.name ||
-    !configured()
-  ){
-
-    return;
-
-  }
-
-
-  const day =
-    state.hijri.day;
-
-
-  try{
-
-    const rows =
-      await apiCheckin(
-        state.monthKey,
-        day,
-        state.name
-      );
-
-
-    if(
-      rows &&
-      rows.error === "unauthorized"
-    ){
-
-      clearSession();
-
-      showLockScreen(
-        "Your session expired. Please enter the family PIN again."
-      );
-
-      return;
-
-    }
-
-
-    if(
-      rows &&
-      rows.error
-    ){
-
-      state.error =
-        rows.message ||
-        "Could not save your check-in.";
-
-    }else{
-
-      state.dayRows =
-        Array.isArray(rows)
-        ? rows
-        : [];
-
-      state.error = null;
-
-    }
-
-
-  }catch(e){
-
-    state.error =
-      "Could not save your check-in. Try again in a moment.";
-
-  }
-
-
-  render();
-
-}
-
-
-/* ============================================================
-   DATA HELPERS
-   ============================================================ */
-
-function rowsForDay(day){
-
-  return state.dayRows
-
-    .filter(
-      r =>
-        Number(r.day) === Number(day)
-    )
-
+  return name
+    .split(/\s+/)
+    .slice(0,2)
     .map(
-      r => r.name
-    );
-
-}
-
-
-function namesForDay(day){
-
-  return new Set(
-    rowsForDay(day)
-  );
-
-}
-
-
-function totalCheckins(){
-
-  return state.dayRows.length;
-
-}
-
-
-function memberTotal(name){
-
-  return state.dayRows.filter(
-    r => r.name === name
-  ).length;
+      x => x[0]
+    )
+    .join("")
+    .toUpperCase();
 
 }
 
 
 /* ============================================================
-   ESCAPE HTML
+   TODAY FAMILY HTML
    ============================================================ */
 
-function escapeHtml(value){
+function renderTodayFamily(){
 
-  return String(value)
-
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
-
-}
-
-
-/* ============================================================
-   GET NUMBER OF DAYS IN CURRENT HIJRI MONTH
-   ============================================================ */
-
-function getDaysInCurrentHijriMonth(){
-
-  const currentMonth =
-    state.hijri.month;
-
-
-  const currentYear =
-    state.hijri.year;
-
-
-  /*
-   * Islamic months have 29 or 30 days.
-   *
-   * We check whether day 30 is still in the
-   * current Hijri month.
-   */
-
-  const future =
-    new Date();
-
-
-  future.setDate(
-    future.getDate() +
-    (30 - state.hijri.day)
-  );
-
-
-  const h =
-    getHijriInfo(future);
-
-
-  if(
-    h.month !== currentMonth ||
-    h.year !== currentYear
-  ){
-
-    return 29;
-
-  }
-
-
-  return 30;
-
-}
-
-
-/* ============================================================
-   TODAY'S FAMILY STATUS
-   ============================================================ */
-
-function renderFamilyStatus(){
-
-  const day =
-    state.hijri.day;
-
-
-  const todayList =
-    rowsForDay(day);
-
-
-  const count =
-    todayList.length;
+  const readers =
+    todayReaders();
 
 
   const total =
     FAMILY.length;
+
+
+  const count =
+    readers.length;
 
 
   const percent =
@@ -1662,52 +2009,58 @@ function renderFamilyStatus(){
 
 
   const chips =
-    FAMILY.map(name => {
+    FAMILY.map(
+      name => {
 
-      const read =
-        todayList.includes(name);
+        const read =
+          readers.includes(
+            name
+          );
 
 
-      return `
+        return `
 
-        <div
-          class="chip ${read ? "read" : ""}"
-        >
+          <div
+            class="chip ${
+              read ? "read" : ""
+            }"
+          >
 
-          <span class="avatar">
-            ${initials(name)}
-          </span>
+            <span class="avatar">
+              ${initials(name)}
+            </span>
 
-          ${escapeHtml(name)}
+            ${name}
 
-        </div>
+          </div>
 
-      `;
+        `;
 
-    }).join("");
+      }
+    ).join("");
 
 
   return `
 
-    <div class="today-summary">
+    <div class="family-summary">
 
-      <div>
+      <div class="family-count">
 
-        <div class="today-count">
+        <div class="family-count-number">
           ${count}/${total}
         </div>
 
-        <div class="today-count-label">
-          family members finished
+        <div class="family-count-label">
+          read today
         </div>
 
       </div>
 
 
-      <div class="today-bar">
+      <div class="family-bar">
 
         <div
-          class="today-bar-fill"
+          class="family-bar-fill"
           style="width:${percent}%"
         ></div>
 
@@ -1728,13 +2081,32 @@ function renderFamilyStatus(){
 
 
 /* ============================================================
-   FAMILY MONTH PROGRESS
+   MONTH PROGRESS
    ============================================================ */
 
-function renderFamilyProgress(){
+function renderMonthProgress(){
 
-  const daysInMonth =
-    getDaysInCurrentHijriMonth();
+  const totalDays =
+    daysInMonth();
+
+
+  const totalPossible =
+    totalDays *
+    FAMILY.length;
+
+
+  const completed =
+    state.rows.length;
+
+
+  const percent =
+    totalPossible
+    ? Math.round(
+        completed /
+        totalPossible *
+        100
+      )
+    : 0;
 
 
   let rows = "";
@@ -1742,56 +2114,65 @@ function renderFamilyProgress(){
 
   for(
     let day = 1;
-    day <= daysInMonth;
+    day <= totalDays;
     day++
   ){
 
-    const list =
-      namesForDay(day);
-
-
-    const count =
-      list.size;
-
-
-    const isToday =
+    const today =
       day === state.hijri.day;
 
 
     const dots =
-      FAMILY.map(name => {
+      FAMILY.map(
+        name => {
 
-        const read =
-          list.has(name);
+          const read =
+            hasRead(
+              day,
+              name
+            );
 
 
-        return `
+          return `
 
-          <div
-            class="member-dot ${read ? "read" : ""}"
-            title="${escapeHtml(name)}"
-          ></div>
+            <div
+              class="person-dot ${
+                read ? "read" : ""
+              }"
+              title="${name}"
+            ></div>
 
-        `;
+          `;
 
-      }).join("");
+        }
+      ).join("");
+
+
+    const count =
+      FAMILY.filter(
+        name =>
+          hasRead(
+            day,
+            name
+          )
+      ).length;
 
 
     rows += `
 
       <div
-        class="day-row ${isToday ? "today" : ""}"
+        class="day-row ${
+          today ? "today" : ""
+        }"
       >
 
         <div class="day-number">
           ${day}
         </div>
 
-
-        <div class="member-dots">
+        <div class="day-dots">
           ${dots}
         </div>
-
 
         <div class="day-total">
           ${count}/${FAMILY.length}
@@ -1804,35 +2185,18 @@ function renderFamilyProgress(){
   }
 
 
-  const possible =
-    daysInMonth *
-    FAMILY.length;
-
-
-  const completed =
-    totalCheckins();
-
-
-  const percent =
-    possible
-    ? Math.round(
-        completed / possible * 100
-      )
-    : 0;
-
-
   return `
 
     <div class="progress-header">
 
       <div>
 
-        <div class="progress-big">
-          ${completed}/${possible}
+        <div class="progress-number">
+          ${completed}/${totalPossible}
         </div>
 
-        <div class="progress-small">
-          family check-ins
+        <div class="progress-label">
+          family check-ins this month
         </div>
 
       </div>
@@ -1848,38 +2212,16 @@ function renderFamilyProgress(){
     <div class="progress-bar">
 
       <div
-        class="progress-bar-fill"
+        class="progress-fill"
         style="width:${percent}%"
       ></div>
 
     </div>
 
 
-    <div class="day-progress-list">
+    <div class="day-list">
 
       ${rows}
-
-    </div>
-
-
-    <div class="legend">
-
-      <div class="legend-item">
-
-        <span class="legend-dot done"></span>
-
-        Completed
-
-      </div>
-
-
-      <div class="legend-item">
-
-        <span class="legend-dot today"></span>
-
-        Today
-
-      </div>
 
     </div>
 
@@ -1892,54 +2234,61 @@ function renderFamilyProgress(){
    INDIVIDUAL PROGRESS
    ============================================================ */
 
-function renderMemberProgress(){
+function renderMembers(){
 
-  const daysInMonth =
-    getDaysInCurrentHijriMonth();
-
-
-  return FAMILY.map(name => {
-
-    const total =
-      memberTotal(name);
+  const totalDays =
+    daysInMonth();
 
 
-    const percent =
-      daysInMonth
-      ? Math.round(
-          total / daysInMonth * 100
-        )
-      : 0;
+  return FAMILY.map(
+    name => {
+
+      const completed =
+        state.rows.filter(
+          row =>
+            row.name === name
+        ).length;
 
 
-    return `
+      const percent =
+        totalDays
+        ? Math.round(
+            completed /
+            totalDays *
+            100
+          )
+        : 0;
 
-      <div class="member-row">
 
-        <div class="member-name">
-          ${escapeHtml(name)}
+      return `
+
+        <div class="member-row">
+
+          <div class="member-name">
+            ${name}
+          </div>
+
+
+          <div class="member-bar">
+
+            <div
+              class="member-fill"
+              style="width:${percent}%"
+            ></div>
+
+          </div>
+
+
+          <div class="member-total">
+            ${completed}/${totalDays}
+          </div>
+
         </div>
 
+      `;
 
-        <div class="member-bar">
-
-          <div
-            class="member-bar-fill"
-            style="width:${percent}%"
-          ></div>
-
-        </div>
-
-
-        <div class="member-total">
-          ${total}/${daysInMonth}
-        </div>
-
-      </div>
-
-    `;
-
-  }).join("");
+    }
+  ).join("");
 
 }
 
@@ -1951,7 +2300,9 @@ function renderMemberProgress(){
 function render(){
 
   const app =
-    document.getElementById("app");
+    document.getElementById(
+      "app"
+    );
 
 
   if(!state.hijri){
@@ -1974,89 +2325,40 @@ function render(){
 
 
   const monthName =
-    HIJRI_MONTH_NAMES[
+    HIJRI_MONTHS[
       state.hijri.month - 1
     ];
 
 
-  const todayList =
-    rowsForDay(day);
-
-
-  const iRead =
+  const read =
     state.name
-    ? todayList.includes(
+    ? hasRead(
+        day,
         state.name
       )
     : false;
 
 
-  const daysInMonth =
-    getDaysInCurrentHijriMonth();
-
-
-  /* ==========================================================
-     ERROR
-     ========================================================== */
-
-  let errorBanner = "";
-
-
-  if(!configured()){
-
-    errorBanner = `
-
-      <div class="setup-banner">
-
-        This tracker isn't connected yet.
-
-        Add your Google Apps Script Web App URL
-        to <code>SCRIPT_URL</code> near the top
-        of this file.
-
-      </div>
-
-    `;
-
-  }else if(state.error){
-
-    errorBanner = `
-
-      <div class="error-banner">
-
-        ${escapeHtml(state.error)}
-
-      </div>
-
-    `;
-
-  }
-
-
-  /* ==========================================================
-     NAME BLOCK
-     ========================================================== */
-
-  let nameBlock;
+  let nameHtml;
 
 
   if(state.name){
 
-    nameBlock = `
+    nameHtml = `
 
       <div class="you-line">
 
         Checking in as
 
         <strong>
-          ${escapeHtml(state.name)}
+          ${state.name}
         </strong>
 
         ·
 
         <button
           class="text-button"
-          onclick="promptRename()"
+          onclick="changeName()"
         >
           not you?
         </button>
@@ -2067,7 +2369,7 @@ function render(){
 
   }else{
 
-    nameBlock = `
+    nameHtml = `
 
       <div class="who-label">
         Who's checking in?
@@ -2077,16 +2379,18 @@ function render(){
       <div class="who-grid">
 
         ${
-          FAMILY.map(name => `
+          FAMILY.map(
+            name => `
 
-            <button
-              class="who-btn"
-              onclick="saveName('${escapeHtml(name)}')"
-            >
-              ${escapeHtml(name)}
-            </button>
+              <button
+                class="who-btn"
+                onclick="saveName('${name}')"
+              >
+                ${name}
+              </button>
 
-          `).join("")
+            `
+          ).join("")
         }
 
       </div>
@@ -2096,35 +2400,80 @@ function render(){
   }
 
 
-  /* ==========================================================
-     BUTTON
-     ========================================================== */
-
-  const buttonText =
-    iRead
-    ? `✓  Read Juz ${day} today`
-    : `I read Juz ${day} today`;
+  let actionHtml;
 
 
-  /* ==========================================================
-     HTML
-     ========================================================== */
+  if(read){
+
+    actionHtml = `
+
+      <button
+        class="checkin-btn done ${
+          state.busy ? "busy" : ""
+        }"
+        onclick="undo()"
+      >
+
+        ${
+          state.busy
+          ? "Saving…"
+          : "✓  Read Juz " + day + " today"
+        }
+
+      </button>
+
+
+      <button
+        class="undo-btn"
+        onclick="undo()"
+        ${state.busy ? "disabled" : ""}
+      >
+
+        Undo
+
+      </button>
+
+    `;
+
+  }else{
+
+    actionHtml = `
+
+      <button
+        class="checkin-btn ${
+          state.busy ? "busy" : ""
+        }"
+        onclick="checkin()"
+      >
+
+        ${
+          state.busy
+          ? "Saving…"
+          : "I read Juz " + day + " today"
+        }
+
+      </button>
+
+    `;
+
+  }
+
 
   app.innerHTML = `
 
-    ${errorBanner}
 
-
-    <!-- HEADER -->
+    <!-- ======================================================
+         HEADER
+         ====================================================== -->
 
     <div class="top">
 
       <div class="hijri-date">
 
-        ${escapeHtml(monthName)}
+        ${monthName}
         ${state.hijri.year}H
         ·
-        Day ${day} of ${daysInMonth}
+        Day ${day}
 
       </div>
 
@@ -2141,26 +2490,47 @@ function render(){
     </div>
 
 
-    <!-- TODAY'S JUZ -->
+    <!-- ======================================================
+         TODAY'S JUZ
+         ====================================================== -->
 
-    <div class="juz-card">
+    <div class="card juz-card">
 
       <div class="juz-label">
         Today's reading
       </div>
 
 
-      <div class="juz-star">
+      <div class="juz-circle">
 
         <svg
           width="100"
           height="100"
           viewBox="0 0 112 112"
-          style="position:absolute;top:0;left:0;"
+          style="
+            position:absolute;
+            top:0;
+            left:0;
+          "
         >
 
           <polygon
-            points="56,4 66,30 94,26 76,48 100,64 72,66 76,94 56,74 36,94 40,66 12,64 36,48 18,26 46,30"
+            points="
+              56,4
+              66,30
+              94,26
+              76,48
+              100,64
+              72,66
+              76,94
+              56,74
+              36,94
+              40,66
+              12,64
+              36,48
+              18,26
+              46,30
+            "
             fill="#F3EFE4"
             stroke="#B8873A"
             stroke-width="2"
@@ -2176,7 +2546,7 @@ function render(){
       </div>
 
 
-      <div class="juz-sub">
+      <div class="juz-name">
         Juz ${day}
       </div>
 
@@ -2191,92 +2561,92 @@ function render(){
       </a>
 
 
-      <button
-        class="checkin-btn ${iRead ? "done" : ""}"
-        ${
-          state.name && configured()
-          ? ""
-          : "disabled"
-        }
-        onclick="toggleCheckin()"
-      >
-
-        ${buttonText}
-
-      </button>
+      ${actionHtml}
 
 
-      ${nameBlock}
+      ${nameHtml}
 
     </div>
 
 
-    <!-- TODAY'S FAMILY -->
+    <!-- ======================================================
+         TODAY'S FAMILY
+         ====================================================== -->
 
     <div class="section-title">
       Today's family
     </div>
 
 
-    <div class="family-card">
+    <div class="card">
 
-      ${renderFamilyStatus()}
+      ${renderTodayFamily()}
 
     </div>
 
 
-    <!-- FAMILY PROGRESS -->
+    <!-- ======================================================
+         MONTH PROGRESS
+         ====================================================== -->
 
     <div class="section-title">
       Family progress
     </div>
 
 
-    <div class="progress-card">
+    <div class="card">
 
-      ${renderFamilyProgress()}
+      ${renderMonthProgress()}
 
     </div>
 
 
-    <!-- INDIVIDUAL PROGRESS -->
+    <!-- ======================================================
+         INDIVIDUAL PROGRESS
+         ====================================================== -->
 
     <div class="section-title">
       Individual progress
     </div>
 
 
-    <div class="member-progress-card">
+    <div class="card">
 
-      <div class="member-progress">
+      <div class="member-list">
 
-        ${renderMemberProgress()}
+        ${renderMembers()}
 
       </div>
 
     </div>
 
 
-    <!-- FOOTER -->
+    <!-- ======================================================
+         FOOTER
+         ====================================================== -->
 
-    <div class="footer-note">
+    <div class="footer">
 
-      ${daysInMonth} days · ${daysInMonth} Juz
+      ${daysInMonth()} days ·
+      ${daysInMonth()} Juz
 
       <br>
 
       May Allah accept it from all of us 🤍
 
-    </div>
+
+      <br>
 
 
-    <div class="footer-actions">
-
-      <button onclick="logout()">
+      <button
+        class="lock-link"
+        onclick="logout()"
+      >
         Lock tracker
       </button>
 
     </div>
+
 
   `;
 
@@ -2287,17 +2657,26 @@ function render(){
    START
    ============================================================ */
 
-if(getSessionToken()){
+loadStorage();
 
-  loadState();
+
+if(
+  state.token &&
+  SCRIPT_URL.indexOf(
+    "PASTE_YOUR"
+  ) === -1
+){
+
+  load();
 
 }else{
 
-  showLockScreen();
+  showLogin();
 
 }
 
 </script>
 
 </body>
+
 </html>
